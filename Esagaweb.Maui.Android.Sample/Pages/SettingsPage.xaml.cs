@@ -14,8 +14,20 @@ public partial class SettingsPage : ContentPage
         NewsSwitch.Toggled += (_, v) => RefreshState();
         PromoCheck.CheckedChanged += (_, v) => RefreshState();
         BrightSlider.ValueChanged += (_, _) => RefreshState();
+        // Tema: marca el actual y lo cambia en vivo (los controles M3 usan AppThemeBinding).
+        var dark = Application.Current?.RequestedTheme == AppTheme.Dark;
+        LightRow.IsSelected = !dark;
+        DarkRow.IsSelected = dark;
+        LightRow.SelectedChanged += (_, on) => { if (on) SetTheme(AppTheme.Light); };
+        DarkRow.SelectedChanged += (_, on) => { if (on) SetTheme(AppTheme.Dark); };
         RefreshState();
         SizeChanged += OnSizeChanged;
+    }
+
+    private static void SetTheme(AppTheme theme)
+    {
+        if (Application.Current is not null)
+            Application.Current.UserAppTheme = theme;
     }
 
     private void RefreshState()
