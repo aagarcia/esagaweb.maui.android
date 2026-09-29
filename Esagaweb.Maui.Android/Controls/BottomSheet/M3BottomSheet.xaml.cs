@@ -96,7 +96,8 @@ public partial class M3BottomSheet : ContentView
             return;
         }
 
-        var scrim = new BoxView { Color = Color.FromArgb("#52000000") };
+        // Set BackgroundColor too: the default MAUI template styles BoxView with an opaque BackgroundColor.
+        var scrim = new BoxView { Color = Color.FromArgb("#52000000"), BackgroundColor = Colors.Transparent };
         scrim.GestureRecognizers.Add(new TapGestureRecognizer
         {
             Command = new Command(async () => await HideAsync())

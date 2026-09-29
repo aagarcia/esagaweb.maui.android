@@ -45,6 +45,7 @@
         </Border>
         <!-- Bottom indicator (Filled variant): active line 2dp / inactive 1dp. -->
         <BoxView x:Name="IndicatorLine"
+                 BackgroundColor="Transparent"
                  HeightRequest="1"
                  HorizontalOptions="Fill"
                  Margin="0,-8,0,0"

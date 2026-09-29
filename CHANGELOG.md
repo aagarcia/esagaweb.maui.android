@@ -14,6 +14,7 @@ Versions follow [SemVer](https://semver.org/).
 - `M3Fab` / `M3IconButton`: `Command` now respects `CanExecute` and receives `CommandParameter` (previously ignored both).
 - `M3Badge`: dark mode text color used `M3DarkOnPrimary` instead of `M3DarkOnError`.
 - `M3Fab`: disabled state now shows reduced opacity (0.38) matching `M3IconButton`.
+- `M3BottomSheet` / `M3TextField`: the scrim, the drag handle and the indicator line turned opaque dark gray in apps using the default MAUI template styles (implicit `BoxView` style); their `BackgroundColor` is now set explicitly.
 
 ### Changed
 - XML documentation (IntelliSense) translated to English and expanded: defaults, parameters, return values and XAML examples.

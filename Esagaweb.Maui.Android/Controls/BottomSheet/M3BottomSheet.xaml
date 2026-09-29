@@ -16,6 +16,7 @@
             </Border.StrokeShape>
             <VerticalStackLayout Spacing="8">
                 <BoxView x:Name="Handle"
+                         BackgroundColor="Transparent"
                          HeightRequest="4"
                          WidthRequest="32"
                          CornerRadius="2"
