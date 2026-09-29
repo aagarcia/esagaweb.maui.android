@@ -227,6 +227,14 @@ public partial class M3TextField : ContentView
         FieldLabel.FontFamily = "NunitoSemiBold";
         SupportLabel.FontFamily = "NunitoRegular";
         InnerEntry.FontFamily = "NunitoRegular";
+#if ANDROID
+        // The field draws its own border and indicator: hide the native EditText underline.
+        InnerEntry.HandlerChanged += (_, _) =>
+        {
+            if (InnerEntry.Handler?.PlatformView is global::Android.Widget.EditText editText)
+                editText.BackgroundTintList = global::Android.Content.Res.ColorStateList.ValueOf(global::Android.Graphics.Color.Transparent);
+        };
+#endif
         InnerEntry.Text = Text;
         InnerEntry.Placeholder = Placeholder;
         InnerEntry.IsPassword = IsPassword;
