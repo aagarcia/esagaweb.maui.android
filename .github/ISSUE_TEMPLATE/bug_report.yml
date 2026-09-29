@@ -7,8 +7,8 @@ body:
     id: version
     attributes:
       label: Package / commit version
-      description: Library version (e.g. 1.1.0) or commit hash.
-      placeholder: "1.1.0"
+      description: Library version (e.g. 1.2.0) or commit hash.
+      placeholder: "1.2.0"
     validations:
       required: true
   - type: dropdown

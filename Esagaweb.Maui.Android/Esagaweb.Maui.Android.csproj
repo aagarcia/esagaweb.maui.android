@@ -16,7 +16,7 @@
 
 		<!-- NuGet package metadata (Esagaweb.Maui.Android). -->
 		<PackageId>Esagaweb.Maui.Android</PackageId>
-		<Version>1.1.0</Version>
+		<Version>1.2.0</Version>
 		<Authors>Alex Garcia A./Esagaweb</Authors>
 		<Description>Material 3 component kit for .NET MAUI Android: buttons, FAB, cards, app bars, inputs and overlays, with light/dark theming and responsive layouts.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
