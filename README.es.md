@@ -36,6 +36,17 @@ por construir: elige uno y es tuyo (ver [Hoja de ruta](#hoja-de-ruta)).
   </tr>
 </table>
 
+En movimiento:
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/images/add-to-cart.gif" width="200" alt="Diálogo, snackbar con deshacer, FAB que sube"><br><sub>Diálogo, snackbar con deshacer, FAB que sube</sub></td>
+    <td align="center"><img src="docs/images/size-sheet.gif" width="200" alt="Bottom sheet + radios"><br><sub>Bottom sheet + radios</sub></td>
+    <td align="center"><img src="docs/images/chips.gif" width="200" alt="Chips de filtro"><br><sub>Chips de filtro</sub></td>
+    <td align="center"><img src="docs/images/settings-theme.gif" width="200" alt="Cambio claro/oscuro en vivo"><br><sub>Cambio claro/oscuro en vivo</sub></td>
+  </tr>
+</table>
+
 Los temas claro y oscuro cambian solos con el sistema:
 
 <table>

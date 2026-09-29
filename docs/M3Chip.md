@@ -2,6 +2,8 @@
 
 Compact M3 chip (namespace `Esagaweb.Maui.Android.Controls.Chip`). Example: **Catalog** page of the Sample (exclusive filter chips).
 
+<img src="images/chips.gif" width="280" alt="Exclusive filter chips">
+
 ## Parameters
 
 | Parameter | Type | Default | Notes |

@@ -2,6 +2,8 @@
 
 M3 snackbars like Flutter's `ScaffoldMessenger` (namespace `Esagaweb.Maui.Android.Controls.Snackbar`). Examples: **Catalog**, **Detail**, **Checkout**, and **Settings** pages of the Sample.
 
+<img src="images/add-to-cart.gif" width="280" alt="Snackbar with an undo action; the FAB lifts while it is visible">
+
 ## Usage
 
 One instance at the bottom of the page + enqueue:

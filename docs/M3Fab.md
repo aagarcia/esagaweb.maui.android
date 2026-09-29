@@ -2,6 +2,8 @@
 
 Standalone M3 floating action button (namespace `Esagaweb.Maui.Android.Controls.Fab`). Example: **Detail** page of the Sample (favorite FAB), and **Catalog** (extended "Checkout" FAB).
 
+<img src="images/add-to-cart.gif" width="280" alt="The FAB lifts while a snackbar is visible">
+
 ## Parameters
 
 | Parameter | Type | Default | Notes |

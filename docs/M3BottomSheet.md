@@ -2,6 +2,8 @@
 
 Modal bottom sheet like Flutter's `showModalBottomSheet` (namespace `Esagaweb.Maui.Android.Controls.BottomSheet`). Example: **Detail** page of the Sample (size picker).
 
+<img src="images/size-sheet.gif" width="280" alt="Size picker bottom sheet">
+
 ## Parameters
 
 | Parameter | Type | Default | Notes |

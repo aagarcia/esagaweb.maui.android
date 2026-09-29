@@ -39,6 +39,17 @@ Material 3 components still to build: pick one and it's yours (see [Roadmap](#ro
   </tr>
 </table>
 
+In motion:
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/images/add-to-cart.gif" width="200" alt="Dialog, snackbar with undo, FAB lifting"><br><sub>Dialog, snackbar with undo, FAB lifting</sub></td>
+    <td align="center"><img src="docs/images/size-sheet.gif" width="200" alt="Bottom sheet + radios"><br><sub>Bottom sheet + radios</sub></td>
+    <td align="center"><img src="docs/images/chips.gif" width="200" alt="Filter chips"><br><sub>Filter chips</sub></td>
+    <td align="center"><img src="docs/images/settings-theme.gif" width="200" alt="Live light/dark switch"><br><sub>Live light/dark switch</sub></td>
+  </tr>
+</table>
+
 Light and dark themes switch automatically with the system:
 
 <table>
@@ -168,7 +179,7 @@ the **New component** template and claim one:
 - [ ] Dynamic color / custom seed color theming
 - [ ] Publish to nuget.org
 - [ ] Show `M3NavigationBar` (bar + rail) in the Sample
-- [ ] GIFs and per-component screenshots for every doc page in `docs/` (a perfect first contribution)
+- [ ] GIFs or screenshots for the doc pages that still lack them (a perfect first contribution)
 
 ## Contributing
 

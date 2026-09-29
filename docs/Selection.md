@@ -2,6 +2,8 @@
 
 48dp M3 rows with label + native control (namespace `Esagaweb.Maui.Android.Controls.Selection`). Examples: **Settings** (switches, theme radios, brightness slider) and **Checkout** (shipping radios, terms check) pages of the Sample.
 
+<img src="images/settings-theme.gif" width="280" alt="Switches, checkbox, slider and the light/dark radios">
+
 ## Shared parameters
 
 | Control | Text | Value (**TwoWay**) | Extra |

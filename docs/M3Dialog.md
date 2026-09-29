@@ -2,6 +2,8 @@
 
 M3 dialog like Flutter's `AlertDialog` (namespace `Esagaweb.Maui.Android.Controls.Dialog`). Example: **Detail** page of the Sample (confirm dialog).
 
+<img src="images/add-to-cart.gif" width="280" alt="Confirm dialog, then a snackbar with undo">
+
 ## Parameters
 
 | Parameter | Type | Default | Notes |
