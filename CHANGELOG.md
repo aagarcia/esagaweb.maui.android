@@ -7,6 +7,8 @@ Versions follow [SemVer](https://semver.org/).
 
 ### Added
 - `CommandParameter` property on `M3Fab` and `M3IconButton`.
+- `M3FabHost.Snackbar` property: connects a `M3SnackbarHost` so the FAB translates upward while the snackbar is visible (Material 3 behavior).
+- `M3SnackbarHost.OccupiedHeight` (readonly) and `OccupiedHeightChanged` event: expose the vertical space occupied by the visible snackbar bar.
 
 ### Fixed
 - `M3Dialog.ShowAsync`: hangs when modal is dismissed with hardware back button (now handles back via `M3ModalHostPage`); idempotent `CloseAsync`; re-entrant `ShowAsync` returns existing task.
@@ -17,6 +19,7 @@ Versions follow [SemVer](https://semver.org/).
 - `M3BottomSheet` / `M3TextField`: the scrim, the drag handle and the indicator line turned opaque dark gray in apps using the default MAUI template styles (implicit `BoxView` style); their `BackgroundColor` is now set explicitly.
 - `M3TextField` (Android): the native `EditText` underline was drawn inside the field; it is now hidden.
 - `M3RadioRow` (Android): the radio circle used the app's `colorAccent` instead of the Material 3 palette (nearly invisible in dark theme); it now uses `M3Primary` / `M3DarkPrimary` when checked and the outline color when unchecked, and follows live theme changes.
+- FAB was covered by the snackbar; now it lifts while the snackbar is visible (Material 3).
 
 ### Changed
 - XML documentation (IntelliSense) translated to English and expanded: defaults, parameters, return values and XAML examples.

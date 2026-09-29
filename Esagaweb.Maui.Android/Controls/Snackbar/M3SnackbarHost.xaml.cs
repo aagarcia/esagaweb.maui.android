@@ -17,6 +17,7 @@ public partial class M3SnackbarHost : ContentView
 
     private IDispatcherTimer? _timer;
     private M3SnackbarRequest? _shown;
+    private double _lastOccupiedHeight;
 
     /// <summary>Initializes a new instance of the <see cref="M3SnackbarHost"/> class.</summary>
     public M3SnackbarHost()
@@ -30,12 +31,45 @@ public partial class M3SnackbarHost : ContentView
             ActionInvoked?.Invoke(this, EventArgs.Empty);
             Queue.DismissCurrent();
         };
+        Bar.SizeChanged += (_, _) => RaiseOccupiedHeightChanged();
         ApplyTheme();
         Refresh();
     }
 
     /// <summary>Occurs when the notice action button is tapped.</summary>
     public event EventHandler? ActionInvoked;
+
+    /// <summary>
+    /// Occurs when <see cref="OccupiedHeight"/> changes.
+    /// </summary>
+    public event EventHandler? OccupiedHeightChanged;
+
+    /// <summary>
+    /// Gets the vertical space occupied by the visible snackbar bar, including its margin.
+    /// Returns 0 when the bar is hidden or has not been measured yet.
+    /// </summary>
+    public double OccupiedHeight => ComputeOccupiedHeight(Bar.IsVisible, Bar.Height, Bar.Margin);
+
+    /// <summary>
+    /// Computes the vertical space occupied by the snackbar bar.
+    /// </summary>
+    /// <param name="visible">Whether the bar is currently visible.</param>
+    /// <param name="barHeight">The measured height of the bar. Values less than or equal to zero mean not yet measured.</param>
+    /// <param name="margin">The margin applied to the bar.</param>
+    /// <returns>The occupied vertical space (bar height plus vertical margin), or 0 when hidden or not yet measured.</returns>
+    internal static double ComputeOccupiedHeight(bool visible, double barHeight, Thickness margin)
+        => visible && barHeight > 0 ? barHeight + margin.VerticalThickness : 0;
+
+    private void RaiseOccupiedHeightChanged()
+    {
+        var height = OccupiedHeight;
+        if (Math.Abs(height - _lastOccupiedHeight) < 0.01)
+        {
+            return;
+        }
+        _lastOccupiedHeight = height;
+        OccupiedHeightChanged?.Invoke(this, EventArgs.Empty);
+    }
 
     /// <summary>Enqueues a notice with message text, optional action text, and optional duration.</summary>
     /// <param name="message">The message text to display.</param>
@@ -52,12 +86,14 @@ public partial class M3SnackbarHost : ContentView
         if (_shown is null)
         {
             Bar.IsVisible = false;
+            RaiseOccupiedHeightChanged();
             return;
         }
         MessageLabel.Text = _shown.Message;
         ActionButton.Text = _shown.ActionText ?? string.Empty;
         ActionButton.IsVisible = !string.IsNullOrEmpty(_shown.ActionText);
         Bar.IsVisible = true;
+        RaiseOccupiedHeightChanged();
         var seconds = _shown.Duration?.TotalSeconds
             ?? M3ControlHelper.ResDouble("M3SnackbarDurationSeconds", 4);
         _timer = Dispatcher.CreateTimer();

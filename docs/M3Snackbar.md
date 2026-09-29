@@ -20,6 +20,8 @@ Snacks.Show("Simple notice");         // 4s by default
 - `M3SnackbarHost.Queue` (`M3SnackbarQueue`): observable FIFO queue.
 - `Show(message, actionText?, duration?)`: shortcut to enqueue.
 - `ActionInvoked` event when the action is tapped.
+- `OccupiedHeight` (readonly `double`): vertical space occupied by the visible snackbar bar (height + margin), or 0 when hidden or not yet measured.
+- `OccupiedHeightChanged` event: raised when `OccupiedHeight` changes (e.g., after layout measures a multi-line message).
 - `M3SnackbarQueue`: `Current`, `PendingCount`, `Enqueue()`, `DismissCurrent()`, `Clear()`, `Changed` event, `DefaultDuration` (4s).
 
 ## Notes

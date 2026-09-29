@@ -35,15 +35,22 @@ Extended secondary:
 Host that docks the FAB over any content (`Body` + `FabContent`, `Location` `End`/`Center`):
 
 ```xml
-<fab:M3FabHost>
+<fab:M3FabHost Snackbar="{x:Reference Snacks}">
     <fab:M3FabHost.Body>
-        <ScrollView><!-- content --></ScrollView>
+        <Grid RowDefinitions="*,Auto">
+            <ScrollView><!-- content --></ScrollView>
+            <snack:M3SnackbarHost x:Name="Snacks" Grid.Row="1" />
+        </Grid>
     </fab:M3FabHost.Body>
     <fab:M3FabHost.FabContent>
         <fab:M3Fab Glyph="{x:Static common:M3Icons.Favorite}" Clicked="OnFavClicked" />
     </fab:M3FabHost.FabContent>
 </fab:M3FabHost>
 ```
+
+| Parameter | Type | Default | Notes |
+|---|---|---|---|
+| `Snackbar` | `M3SnackbarHost` | `null` | When set, the FAB translates upward by the snackbar occupied height while the snackbar is visible (Material 3 behavior). |
 
 ## Notes
 

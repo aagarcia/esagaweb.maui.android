@@ -13,7 +13,7 @@
               x:Class="Esagaweb.Maui.Android.Sample.Pages.CatalogPage"
               Shell.NavBarIsVisible="False"
               Title="Catálogo">
-    <fab:M3FabHost>
+    <fab:M3FabHost Snackbar="{x:Reference Snacks}">
         <fab:M3FabHost.Body>
             <Grid RowDefinitions="Auto,Auto,*,Auto">
         <appbar:M3TopAppBar x:Name="TopBar"
