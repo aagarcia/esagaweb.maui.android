@@ -62,7 +62,7 @@ public partial class M3BottomSheet : ContentView
     }
 
     /// <summary>
-    /// Occurs when the sheet is closed by any means.
+    /// Occurs when the sheet is closed by any means (scrim tap, back button, or <see cref="HideAsync"/>).
     /// </summary>
     public event EventHandler? Dismissed;
 
@@ -80,11 +80,22 @@ public partial class M3BottomSheet : ContentView
     private Page? _hostPage;
 
     /// <summary>
-    /// Shows the sheet as a bottom-anchored modal with a scrim. A task that completes when the modal page has been presented.
+    /// Shows the sheet as a bottom-anchored modal with a scrim.
     /// </summary>
     /// <param name="navigation">The navigation service used to present the modal page.</param>
+    /// <returns>A task that completes when the modal page has been presented.</returns>
+    /// <remarks>
+    /// If the sheet is already open, this method does nothing.
+    /// The hardware back button dismisses the sheet and raises <see cref="Dismissed"/>.
+    /// </remarks>
     public async Task ShowAsync(INavigation navigation)
     {
+        if (_hostPage is not null)
+        {
+            // Already open.
+            return;
+        }
+
         var scrim = new BoxView { Color = Color.FromArgb("#52000000") };
         scrim.GestureRecognizers.Add(new TapGestureRecognizer
         {
@@ -92,7 +103,7 @@ public partial class M3BottomSheet : ContentView
         });
         // Detach from a previous parent before adding to the host, or it would be removed from its own host page.
         (Parent as Layout)?.Children.Remove(this);
-        _hostPage = new ContentPage
+        _hostPage = new M3ModalHostPage
         {
             BackgroundColor = Colors.Transparent,
             Content = new Grid
@@ -101,20 +112,34 @@ public partial class M3BottomSheet : ContentView
                     new RowDefinition(GridLength.Star),
                     new RowDefinition(GridLength.Auto)),
                 Children = { scrim, this }
-            }
+            },
+            BackRequested = () => _ = HideAsync()
         };
         Grid.SetRow(this, 1);
         await navigation.PushModalAsync(_hostPage);
     }
 
     /// <summary>
-    /// Hides the modal sheet if it is visible and raises <see cref="Dismissed"/>. A task that completes when the modal page has been dismissed.
+    /// Hides the modal sheet if it is visible and raises <see cref="Dismissed"/>.
     /// </summary>
+    /// <returns>A task that completes when the modal page has been dismissed.</returns>
+    /// <remarks>
+    /// If the sheet is not open, this method does nothing and <see cref="Dismissed"/> is not raised.
+    /// </remarks>
     public async Task HideAsync()
     {
-        if (_hostPage?.Navigation is not null)
-            await _hostPage.Navigation.PopModalAsync();
+        var host = _hostPage;
+        if (host is null)
+        {
+            return;
+        }
         _hostPage = null;
+
+        if (host.Navigation is not null)
+        {
+            await host.Navigation.PopModalAsync();
+        }
+
         Dismissed?.Invoke(this, EventArgs.Empty);
     }
 

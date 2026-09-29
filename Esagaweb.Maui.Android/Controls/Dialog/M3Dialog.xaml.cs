@@ -154,21 +154,31 @@ public partial class M3Dialog : ContentView
     /// Displays the dialog as a modal page.
     /// </summary>
     /// <param name="navigation">The navigation service used to push the modal host page.</param>
-    /// <returns>A task that completes when the dialog closes. Its result is <c>true</c> when the dialog is confirmed, <c>false</c> when the dialog is canceled, and <c>null</c> when the dialog is dismissed without a choice.</returns>
+    /// <returns>A task that completes when the dialog closes. Its result is <c>true</c> when the dialog is confirmed, <c>false</c> when the dialog is canceled, and <c>null</c> when the dialog is dismissed without a choice (e.g., hardware back button).</returns>
+    /// <remarks>
+    /// Calling <see cref="ShowAsync"/> while the dialog is already open returns the same pending task without presenting a second modal.
+    /// </remarks>
     public async Task<bool?> ShowAsync(INavigation navigation)
     {
+        if (_tcs is not null)
+        {
+            // Dialog already open: return the existing task.
+            return await _tcs.Task;
+        }
+
         _tcs = new TaskCompletionSource<bool?>();
         // Detach from a previous parent BEFORE adding it to the host:
         // doing it afterwards would remove it from its own host page.
         ParentRefresh();
-        _hostPage = new ContentPage
+        _hostPage = new M3ModalHostPage
         {
             BackgroundColor = Color.FromArgb("#52000000"),
             Content = new Grid
             {
                 Padding = 32,
                 Children = { this }
-            }
+            },
+            BackRequested = () => _ = CloseAsync(null)
         };
         await navigation.PushModalAsync(_hostPage);
         return await _tcs.Task;
@@ -176,15 +186,31 @@ public partial class M3Dialog : ContentView
 
     private async Task CloseAsync(bool? result)
     {
-        if (_hostPage?.Navigation is not null)
-            await _hostPage.Navigation.PopModalAsync();
-        _hostPage = null;
-        if (result == true)
-            Confirmed?.Invoke(this, EventArgs.Empty);
-        else if (result == false)
-            Cancelled?.Invoke(this, EventArgs.Empty);
-        _tcs?.TrySetResult(result);
+        var tcs = _tcs;
+        if (tcs is null)
+        {
+            return;
+        }
         _tcs = null;
+
+        var host = _hostPage;
+        _hostPage = null;
+
+        if (host?.Navigation is not null)
+        {
+            await host.Navigation.PopModalAsync();
+        }
+
+        if (result == true)
+        {
+            Confirmed?.Invoke(this, EventArgs.Empty);
+        }
+        else if (result == false)
+        {
+            Cancelled?.Invoke(this, EventArgs.Empty);
+        }
+
+        tcs.TrySetResult(result);
     }
 
     private void ParentRefresh()

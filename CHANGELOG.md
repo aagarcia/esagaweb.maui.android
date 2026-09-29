@@ -5,6 +5,10 @@ Versions follow [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- `M3Dialog.ShowAsync`: hangs when modal is dismissed with hardware back button (now handles back via `M3ModalHostPage`); idempotent `CloseAsync`; re-entrant `ShowAsync` returns existing task.
+- `M3BottomSheet`: back button did not raise `Dismissed`; `HideAsync` could pop an unrelated page; double scrim tap caused double pop (now uses `M3ModalHostPage`, idempotent `HideAsync`).
+
 ### Changed
 - XML documentation (IntelliSense) translated to English and expanded: defaults, parameters, return values and XAML examples.
 
