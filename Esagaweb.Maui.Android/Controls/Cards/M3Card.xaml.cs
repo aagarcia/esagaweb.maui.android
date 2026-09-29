@@ -5,100 +5,169 @@ using Microsoft.Maui.Controls.Shapes;
 namespace Esagaweb.Maui.Android.Controls.Cards;
 
 /// <summary>
-/// Card M3 guiada por Flutter (Card / Card.filled / Card.outlined):
-/// child = Content del Border, color = CardColor, elevation = Elevation,
-/// shape = CornerRadius, margin = Margin (default 4 como Flutter).
-/// Toda la card puede ser tocable (Command + Clicked).
+/// Represents a Material 3 card that hosts arbitrary content with configurable color, elevation and shape.
 /// </summary>
+/// <remarks>
+/// The appearance is selected with <see cref="Variant"/>. A <see langword="null"/> <see cref="CardColor"/> uses
+/// the default color of the variant, and an <see cref="Elevation"/> of -1 uses the default elevation of the variant.
+/// The corner shape follows <see cref="CornerRadius"/>, and the inner spacing follows <see cref="ContentPadding"/>.
+/// Tapping the card runs <see cref="Command"/> when it can execute, then raises <see cref="Clicked"/>.
+/// Background, border and shadow follow the current theme through <c>M3Surface</c>, <c>M3DarkSurface</c>,
+/// <c>M3SurfaceVariant</c>, <c>M3DarkSurfaceVariant</c>, <c>M3Outline</c>, <c>M3DarkOutline</c> and <c>M3Elevation1</c>.
+/// </remarks>
+/// <example>
+/// <code language="xaml">
+/// <![CDATA[
+/// <cards:M3Card xmlns:cards="clr-namespace:Esagaweb.Maui.Android.Controls.Cards;assembly=Esagaweb.Maui.Android"
+///               Variant="Elevated">
+///     <VerticalStackLayout Spacing="8">
+///         <Label Text="Product" />
+///         <Label Text="Shipping in 24/48h." />
+///     </VerticalStackLayout>
+/// </cards:M3Card>
+/// ]]>
+/// </code>
+/// </example>
 public partial class M3Card : Border
 {
-    /// <summary>Propiedad enlazable para <see cref="Variant"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Variant"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty VariantProperty =
         BindableProperty.Create(nameof(Variant), typeof(M3CardVariant), typeof(M3Card),
             M3CardVariant.Elevated, propertyChanged: (b, _, _) => ((M3Card)b).UpdateAppearance());
 
-    /// <summary>Propiedad enlazable para <see cref="CardColor"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="CardColor"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty CardColorProperty =
         BindableProperty.Create(nameof(CardColor), typeof(Color), typeof(M3Card), null,
             propertyChanged: (b, _, _) => ((M3Card)b).UpdateAppearance());
 
-    /// <summary>Propiedad enlazable para <see cref="Elevation"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Elevation"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty ElevationProperty =
         BindableProperty.Create(nameof(Elevation), typeof(double), typeof(M3Card), -1.0,
             propertyChanged: (b, _, _) => ((M3Card)b).UpdateAppearance());
 
-    /// <summary>Propiedad enlazable para <see cref="CornerRadius"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="CornerRadius"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty CornerRadiusProperty =
         BindableProperty.Create(nameof(CornerRadius), typeof(double), typeof(M3Card), 12.0,
             propertyChanged: (b, _, _) => ((M3Card)b).UpdateAppearance());
 
-    /// <summary>Propiedad enlazable para <see cref="ContentPadding"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="ContentPadding"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty ContentPaddingProperty =
         BindableProperty.Create(nameof(ContentPadding), typeof(Thickness), typeof(M3Card), new Thickness(16),
             propertyChanged: (b, _, n) => ((M3Card)b).Padding = (Thickness)n);
 
-    /// <summary>Propiedad enlazable para <see cref="Command"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Command"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(M3Card), null);
 
-    /// <summary>Propiedad enlazable para <see cref="CommandParameter"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="CommandParameter"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty CommandParameterProperty =
         BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(M3Card), null);
 
-    /// <summary>Variante visual. Default Elevated.</summary>
+    /// <summary>
+    /// Gets or sets the visual variant of the card. The default is <see cref="M3CardVariant.Elevated"/>.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public M3CardVariant Variant
     {
         get => (M3CardVariant)GetValue(VariantProperty);
         set => SetValue(VariantProperty, value);
     }
 
-    /// <summary>Null = color default de la variante (igual que Flutter).</summary>
+    /// <summary>
+    /// Gets or sets the background color of the card. A <see langword="null"/> value uses the default color of the variant. The default is <see langword="null"/>.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public Color? CardColor
     {
         get => (Color?)GetValue(CardColorProperty);
         set => SetValue(CardColorProperty, value);
     }
 
-    /// <summary>-1 = elevación default de la variante (1 elevated, 0 resto).</summary>
+    /// <summary>
+    /// Gets or sets the elevation of the card. A value of -1 uses the default elevation of the variant. The default is -1.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public double Elevation
     {
         get => (double)GetValue(ElevationProperty);
         set => SetValue(ElevationProperty, value);
     }
 
-    /// <summary>Radio de esquina en dp. Default 12.</summary>
+    /// <summary>
+    /// Gets or sets the corner radius of the card in density-independent pixels. The default is 12.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public double CornerRadius
     {
         get => (double)GetValue(CornerRadiusProperty);
         set => SetValue(CornerRadiusProperty, value);
     }
 
-    /// <summary>Relleno interior. Default 16 en los 4 lados.</summary>
+    /// <summary>
+    /// Gets or sets the inner padding of the card content. The default is 16 on all sides.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public Thickness ContentPadding
     {
         get => (Thickness)GetValue(ContentPaddingProperty);
         set => SetValue(ContentPaddingProperty, value);
     }
 
-    /// <summary>Comando al tocar la card (recibe <see cref="CommandParameter"/>).</summary>
+    /// <summary>
+    /// Gets or sets the command executed when the card is tapped. It receives <see cref="CommandParameter"/>. The default is <see langword="null"/>.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public ICommand? Command
     {
         get => (ICommand?)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 
-    /// <summary>Parámetro del <see cref="Command"/>.</summary>
+    /// <summary>
+    /// Gets or sets the parameter passed to <see cref="Command"/>. The default is <see langword="null"/>.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public object? CommandParameter
     {
         get => GetValue(CommandParameterProperty);
         set => SetValue(CommandParameterProperty, value);
     }
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="M3Card"/> class.
+    /// </summary>
     public M3Card()
     {
         InitializeComponent();
-        Margin = new Thickness(4); // default Flutter
+        Margin = new Thickness(4); // Use the Flutter default margin.
         Padding = ContentPadding;
         UpdateAppearance();
     }
@@ -144,6 +213,8 @@ public partial class M3Card : Border
     private void OnPointerPressed(object? sender, PointerEventArgs e) => Opacity = 0.93;
     private void OnPointerReleased(object? sender, PointerEventArgs e) => Opacity = 1;
 
-    /// <summary>Se dispara al tocar la card.</summary>
+    /// <summary>
+    /// Occurs when the card is tapped.
+    /// </summary>
     public event EventHandler? Clicked;
 }

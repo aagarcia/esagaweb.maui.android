@@ -3,9 +3,9 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                      x:Class="Esagaweb.Maui.Android.Themes.M3Surfaces">
 
-    <!-- Dimensiones de cards + app bars + navigation (carpeta Themes). Colores en M3Colors.xaml. -->
+    <!-- Card + app bar + navigation dimensions (Themes folder). Colors in M3Colors.xaml. -->
 
-    <!-- M3Card (shape M3 medium, padding, margen default Flutter = 4) -->
+    <!-- M3Card (M3 medium shape, padding, Flutter default margin = 4) -->
     <x:Double x:Key="M3CardCornerRadius">12</x:Double>
     <Thickness x:Key="M3CardPadding">16</Thickness>
 

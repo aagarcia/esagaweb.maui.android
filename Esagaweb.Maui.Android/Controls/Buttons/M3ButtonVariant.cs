@@ -1,16 +1,28 @@
 namespace Esagaweb.Maui.Android.Controls.Buttons;
 
-/// <summary>Variantes M3 de botón. Ver Controls/Buttons/M3Button.</summary>
+/// <summary>
+/// Defines the visual variants of the <see cref="M3Button"/> control.
+/// </summary>
 public enum M3ButtonVariant
 {
-    /// <summary>Con sombra y fondo Surface.</summary>
+    /// <summary>
+    /// Elevated button with a surface background, a shadow and primary content.
+    /// </summary>
     Elevated,
-    /// <summary>Relleno Primary. Default.</summary>
+    /// <summary>
+    /// Filled button with a primary background and on-primary content. This is the default variant.
+    /// </summary>
     Filled,
-    /// <summary>Relleno SecondaryContainer.</summary>
+    /// <summary>
+    /// Tonal button with a secondary container background and on-primary-container content.
+    /// </summary>
     Tonal,
-    /// <summary>Borde Outline, fondo transparente.</summary>
+    /// <summary>
+    /// Outlined button with a transparent background, an outline border and primary content.
+    /// </summary>
     Outlined,
-    /// <summary>Solo texto, sin fondo ni borde.</summary>
+    /// <summary>
+    /// Text button with a transparent background, no border and primary content.
+    /// </summary>
     Text
 }

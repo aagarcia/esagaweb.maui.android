@@ -6,8 +6,8 @@
             StrokeThickness="0"
             HorizontalOptions="Center"
             VerticalOptions="Center">
-        <!-- Dual: Glyph (SIEMPRE MaterialSymbols en su propio Label) o Imagen fallback.
-             Si Text no está vacío: modo extendido (icono + texto). -->
+        <!-- Dual: Glyph (ALWAYS MaterialSymbols in its own Label) or fallback Image.
+             If Text is not empty: extended mode (icon + text). -->
         <HorizontalStackLayout x:Name="ContentRow"
                                Spacing="8"
                                VerticalOptions="Center"

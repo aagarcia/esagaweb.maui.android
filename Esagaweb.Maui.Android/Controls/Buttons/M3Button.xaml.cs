@@ -4,15 +4,42 @@ using Esagaweb.Maui.Android.Helpers;
 
 namespace Esagaweb.Maui.Android.Controls.Buttons;
 
-/// <summary>Botón M3 (Elevated/Filled/Tonal/Outlined/Text) con glyph MaterialSymbols blindado.</summary>
+/// <summary>
+/// Represents a Material 3 button with five visual variants and optional leading icon content.
+/// </summary>
+/// <remarks>
+/// The appearance is selected with <see cref="Variant"/>. The button uses a MaterialSymbols glyph from
+/// <see cref="Glyph"/> when it is not empty, and falls back to the <see cref="Icon"/> image otherwise.
+/// Tapping the button runs <see cref="Command"/> when it can execute, then raises <see cref="Clicked"/>.
+/// The height is responsive through <see cref="ApplyBreakpoint"/>: compact widths use <c>M3ButtonHeightCompact</c>
+/// and larger widths use <c>M3ButtonHeightExpanded</c>. Background, content and border colors follow the current
+/// theme, including a reduced-opacity disabled state. The host application must register fonts with
+/// <c>UseEsagaweb</c> so the MaterialSymbols and NunitoSemiBold fonts resolve.
+/// </remarks>
+/// <example>
+/// <code language="xaml">
+/// <![CDATA[
+/// <buttons:M3Button xmlns:buttons="clr-namespace:Esagaweb.Maui.Android.Controls.Buttons;assembly=Esagaweb.Maui.Android"
+///                   xmlns:common="clr-namespace:Esagaweb.Maui.Android.Controls.Common;assembly=Esagaweb.Maui.Android"
+///                   Text="Add to cart"
+///                   Variant="Filled"
+///                   Glyph="{x:Static common:M3Icons.ShoppingCart}"
+///                   Clicked="OnAddClicked" />
+/// ]]>
+/// </code>
+/// </example>
 public partial class M3Button : ContentView
 {
-    /// <summary>Propiedad enlazable para <see cref="Text"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Text"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(Text), typeof(string), typeof(M3Button), string.Empty,
             propertyChanged: (b, _, n) => ((M3Button)b).TitleLabel.Text = (string?)n ?? string.Empty);
 
-    /// <summary>Propiedad enlazable para <see cref="Icon"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Icon"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty IconProperty =
         BindableProperty.Create(nameof(Icon), typeof(ImageSource), typeof(M3Button), null,
             propertyChanged: (b, _, n) =>
@@ -22,60 +49,98 @@ public partial class M3Button : ContentView
                 self.UpdateGlyph();
             });
 
-    /// <summary>Propiedad enlazable para <see cref="Glyph"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Glyph"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty GlyphProperty =
         BindableProperty.Create(nameof(Glyph), typeof(string), typeof(M3Button), string.Empty,
             propertyChanged: (b, _, _) => ((M3Button)b).UpdateGlyph());
 
-    /// <summary>Propiedad enlazable para <see cref="Variant"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Variant"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty VariantProperty =
         BindableProperty.Create(nameof(Variant), typeof(M3ButtonVariant), typeof(M3Button),
             M3ButtonVariant.Filled, propertyChanged: (b, _, _) => ((M3Button)b).UpdateAppearance());
 
-    /// <summary>Propiedad enlazable para <see cref="Command"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Command"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(M3Button), null);
 
-    /// <summary>Propiedad enlazable para <see cref="CommandParameter"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="CommandParameter"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty CommandParameterProperty =
         BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(M3Button), null);
 
-    /// <summary>Texto del botón.</summary>
+    /// <summary>
+    /// Gets or sets the text displayed on the button. The default is an empty string.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public string Text
     {
         get => (string)GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
 
-    /// <summary>Imagen fallback cuando Glyph está vacío.</summary>
+    /// <summary>
+    /// Gets or sets the image displayed when <see cref="Glyph"/> is empty. The default is <see langword="null"/>.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public ImageSource? Icon
     {
         get => (ImageSource?)GetValue(IconProperty);
         set => SetValue(IconProperty, value);
     }
 
-    /// <summary>Glyph de fuente MaterialSymbols (estilo M3Icons.Favorite). Prioritario sobre Icon.</summary>
+    /// <summary>
+    /// Gets or sets the MaterialSymbols glyph displayed on the button. A non-empty value takes precedence over <see cref="Icon"/>. The default is an empty string.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public string Glyph
     {
         get => (string)GetValue(GlyphProperty);
         set => SetValue(GlyphProperty, value);
     }
 
-    /// <summary>Variante visual. Default Filled.</summary>
+    /// <summary>
+    /// Gets or sets the visual variant of the button. The default is <see cref="M3ButtonVariant.Filled"/>.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public M3ButtonVariant Variant
     {
         get => (M3ButtonVariant)GetValue(VariantProperty);
         set => SetValue(VariantProperty, value);
     }
 
-    /// <summary>Comando al tocar (recibe <see cref="CommandParameter"/>).</summary>
+    /// <summary>
+    /// Gets or sets the command executed when the button is tapped. It receives <see cref="CommandParameter"/>. The default is <see langword="null"/>.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public ICommand? Command
     {
         get => (ICommand?)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 
-    /// <summary>Parámetro del <see cref="Command"/>.</summary>
+    /// <summary>
+    /// Gets or sets the parameter passed to <see cref="Command"/>. The default is <see langword="null"/>.
+    /// </summary>
+    /// <remarks>
+    /// This is a bindable property.
+    /// </remarks>
     public object? CommandParameter
     {
         get => GetValue(CommandParameterProperty);
@@ -84,27 +149,32 @@ public partial class M3Button : ContentView
 
     private M3Breakpoint? _lastBp;
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="M3Button"/> class.
+    /// </summary>
     public M3Button()
     {
         InitializeComponent();
-        // Blindaje: el estilo implícito de Label (Nunito) nunca debe pisar el glyph.
+        // Keep the glyph font fixed so an implicit Label style never replaces it with Nunito.
         GlyphLabel.FontFamily = "MaterialSymbols";
         TitleLabel.FontFamily = "NunitoSemiBold";
         TitleLabel.Text = Text;
         UpdateGlyph();
         UpdateAppearance();
-        ApplyBreakpoint(400); // Compact por defecto (teléfono)
+        ApplyBreakpoint(400); // Use the compact size by default for phones.
     }
 
-    /// <summary>Responsive: 40dp Compact, 48dp Medium/Expanded. Llamar desde SizeChanged de la página.</summary>
+    /// <summary>
+    /// Applies the responsive size for the given width. Compact widths use a 40dp height, and medium and expanded widths use a 48dp height.
+    /// </summary>
+    /// <param name="widthDp">The available width in density-independent pixels. Values less than or equal to zero are ignored.</param>
     public void ApplyBreakpoint(double widthDp)
     {
         if (widthDp <= 0)
             return;
         var bp = ResponsiveHelper.GetBreakpoint(widthDp);
         if (bp == _lastBp)
-            return; // Mismo breakpoint: reasignar HeightRequest realimenta SizeChanged.
+            return; // Ignore a repeated breakpoint so reassigning HeightRequest does not feed back into SizeChanged.
         _lastBp = bp;
         RootBorder.HeightRequest = bp == M3Breakpoint.Compact
             ? M3ControlHelper.ResDouble("M3ButtonHeightCompact", 40)
@@ -124,7 +194,7 @@ public partial class M3Button : ContentView
 
     private void UpdateGlyph()
     {
-        // Reafirmar fuentes en cada cambio: protege frente a estilos implícitos aplicados después.
+        // Reapply the fonts on every change so later implicit styles keep the expected typefaces.
         GlyphLabel.FontFamily = "MaterialSymbols";
         TitleLabel.FontFamily = "NunitoSemiBold";
         var hasGlyph = !string.IsNullOrEmpty(Glyph);
@@ -202,6 +272,8 @@ public partial class M3Button : ContentView
     private void OnPointerPressed(object? sender, PointerEventArgs e) => RootBorder.Opacity = 0.85;
     private void OnPointerReleased(object? sender, PointerEventArgs e) => RootBorder.Opacity = IsEnabled ? 1 : 0.6;
 
-    /// <summary>Se dispara al tocar (si está habilitado).</summary>
+    /// <summary>
+    /// Occurs when the button is tapped while it is enabled.
+    /// </summary>
     public event EventHandler? Clicked;
 }

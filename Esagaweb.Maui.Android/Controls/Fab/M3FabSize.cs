@@ -1,12 +1,12 @@
 namespace Esagaweb.Maui.Android.Controls.Fab;
 
-/// <summary>Tamaños M3 de FAB. Ver Controls/Fab/M3Fab.</summary>
+/// <summary>Defines the sizes of the floating action button.</summary>
 public enum M3FabSize
 {
-    /// <summary>48dp.</summary>
+    /// <summary>Small button.</summary>
     Small,
-    /// <summary>56dp. Default.</summary>
+    /// <summary>Regular button. This is the default.</summary>
     Regular,
-    /// <summary>96dp.</summary>
+    /// <summary>Large button.</summary>
     Large
 }

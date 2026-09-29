@@ -2,10 +2,10 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Esagaweb.Maui.Android.Controls.Dialog.M3Dialog">
-    <!-- IMPORTANTE: el contenido raíz va en ContentView.Content explícito.
-         Sin este wrapper, el generador XAML lo asigna al [ContentProperty]
-         (DialogContent), cuyo setter lo mete dentro de CustomContent creando
-         un ciclo en el árbol visual (ANR por layout infinito). Ver M3TopAppBar. -->
+    <!-- IMPORTANT: root content goes in explicit ContentView.Content.
+         Without this wrapper, the XAML generator assigns it to the [ContentProperty]
+         (DialogContent), whose setter nests it inside CustomContent creating
+         a cycle in the visual tree (ANR from infinite layout). See M3TopAppBar. -->
     <ContentView.Content>
         <Border x:Name="Card"
             StrokeThickness="0"

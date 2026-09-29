@@ -2,60 +2,110 @@ using Esagaweb.Maui.Android.Controls.Common;
 
 namespace Esagaweb.Maui.Android.Controls.Selection;
 
-/// <summary>Fila M3: RadioButton nativo themado + etiqueta Nunito (agrupar con GroupName como en Flutter RadioListTile).</summary>
+/// <summary>
+/// Row with a themed radio button and a label. Tapping the row selects it.
+/// </summary>
+/// <remarks>
+/// Group options with <see cref="GroupName"/> so only one option can be selected.
+/// Uses theme resources for on-surface text, outline, and disabled opacity.
+/// </remarks>
+/// <example>
+/// <code lang="XAML">
+/// <![CDATA[
+/// <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+///              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+///              xmlns:sel="clr-namespace:Esagaweb.Maui.Android.Controls.Selection;assembly=Esagaweb.Maui.Android">
+///     <sel:M3RadioRow Text="Light" GroupName="Theme" Value="L" IsSelected="True" />
+///     <sel:M3RadioRow Text="Dark" GroupName="Theme" Value="D" />
+/// </ContentPage>
+/// ]]>
+/// </code>
+/// </example>
 public partial class M3RadioRow : ContentView
 {
-    /// <summary>Propiedad enlazable para <see cref="Text"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Text"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(Text), typeof(string), typeof(M3RadioRow), string.Empty,
             propertyChanged: (b, _, n) => ((M3RadioRow)b).RowLabel.Text = (string?)n ?? string.Empty);
 
-    /// <summary>Propiedad enlazable para <see cref="IsSelected"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="IsSelected"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty IsSelectedProperty =
         BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(M3RadioRow), false,
             BindingMode.TwoWay, propertyChanged: (b, _, n) => ((M3RadioRow)b).InnerRadio.IsChecked = (bool)n);
 
-    /// <summary>Propiedad enlazable para <see cref="GroupName"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="GroupName"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty GroupNameProperty =
         BindableProperty.Create(nameof(GroupName), typeof(string), typeof(M3RadioRow), string.Empty,
             propertyChanged: (b, _, n) => ((M3RadioRow)b).InnerRadio.GroupName = (string?)n ?? string.Empty);
 
-    /// <summary>Propiedad enlazable para <see cref="Value"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Value"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty ValueProperty =
         BindableProperty.Create(nameof(Value), typeof(object), typeof(M3RadioRow), null);
 
-    /// <summary>Etiqueta de la fila.</summary>
+    /// <summary>
+    /// Gets or sets the row label. The default is an empty string.
+    /// </summary>
+    /// <remarks>
+    /// Bindable property. Changing the value updates the inner label.
+    /// </remarks>
     public string Text
     {
         get => (string)GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
 
-    /// <summary>Si está seleccionada. TwoWay: sirve para cargar y leer de vuelta.</summary>
+    /// <summary>
+    /// Gets or sets a value indicating whether this option is selected. The default is false.
+    /// </summary>
+    /// <remarks>
+    /// Bindable property. Supports two-way binding. Changing the value updates the inner radio button.
+    /// </remarks>
     public bool IsSelected
     {
         get => (bool)GetValue(IsSelectedProperty);
         set => SetValue(IsSelectedProperty, value);
     }
 
-    /// <summary>Nombre del grupo: solo una opción del mismo grupo puede estar seleccionada.</summary>
+    /// <summary>
+    /// Gets or sets the group name. Only one option in the same group can be selected. The default is an empty string.
+    /// </summary>
+    /// <remarks>
+    /// Bindable property. Changing the value updates the inner radio button.
+    /// </remarks>
     public string GroupName
     {
         get => (string)GetValue(GroupNameProperty);
         set => SetValue(GroupNameProperty, value);
     }
 
-    /// <summary>Valor asociado a esta opción (se usa tal cual, sin interpretar).</summary>
+    /// <summary>
+    /// Gets or sets the value associated with this option. The value is used as provided. The default is null.
+    /// </summary>
+    /// <remarks>
+    /// Bindable property.
+    /// </remarks>
     public object? Value
     {
         get => GetValue(ValueProperty);
         set => SetValue(ValueProperty, value);
     }
 
-    /// <summary>Se dispara al cambiar la selección (con el nuevo valor).</summary>
+    /// <summary>
+    /// Occurs when the selection changes, with the new value.
+    /// </summary>
     public event EventHandler<bool>? SelectedChanged;
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="M3RadioRow"/> class.
+    /// </summary>
     public M3RadioRow()
     {
         InitializeComponent();

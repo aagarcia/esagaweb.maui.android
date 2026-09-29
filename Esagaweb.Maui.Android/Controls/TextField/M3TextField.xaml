@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Esagaweb.Maui.Android.Controls.TextField.M3TextField">
     <VerticalStackLayout Spacing="4">
-        <!-- Etiqueta superior estilo M3 (12sp). -->
+        <!-- Top label in M3 style (12sp). -->
         <Label x:Name="FieldLabel"
                FontFamily="NunitoSemiBold"
                FontSize="12"
@@ -18,7 +18,7 @@
             <Grid ColumnDefinitions="Auto,*,Auto"
                   ColumnSpacing="8"
                   VerticalOptions="Center">
-                <!-- Leading: SIEMPRE MaterialSymbols en su propio Label. -->
+                <!-- Leading: ALWAYS MaterialSymbols in its own Label. -->
                 <Label x:Name="LeadingGlyphLabel"
                        FontFamily="MaterialSymbols"
                        FontSize="24"
@@ -30,7 +30,7 @@
                        FontSize="16"
                        BackgroundColor="Transparent"
                        VerticalOptions="Center" />
-                <!-- Trailing: glyph display + tap (ej. mostrar/ocultar contraseña). -->
+                <!-- Trailing: glyph display + tap (e.g. show/hide password). -->
                 <Label x:Name="TrailingGlyphLabel"
                        Grid.Column="2"
                        FontFamily="MaterialSymbols"
@@ -43,13 +43,13 @@
                 </Label>
             </Grid>
         </Border>
-        <!-- Indicador inferior (variante Filled): línea activa 2dp / inactiva 1dp. -->
+        <!-- Bottom indicator (Filled variant): active line 2dp / inactive 1dp. -->
         <BoxView x:Name="IndicatorLine"
                  HeightRequest="1"
                  HorizontalOptions="Fill"
                  Margin="0,-8,0,0"
                  IsVisible="False" />
-        <!-- Texto de ayuda / error. -->
+        <!-- Help / error text. -->
         <Label x:Name="SupportLabel"
                FontFamily="NunitoRegular"
                FontSize="12"

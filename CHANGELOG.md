@@ -5,6 +5,9 @@ Versions follow [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- XML documentation (IntelliSense) translated to English and expanded: defaults, parameters, return values and XAML examples.
+
 - Public repository, English docs, Sample uses ProjectReference, CI.
 - `M3Dialog.ConfirmText` default changed from "Aceptar" to "OK".
 

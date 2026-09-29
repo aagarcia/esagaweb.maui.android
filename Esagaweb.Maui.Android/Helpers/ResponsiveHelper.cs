@@ -2,34 +2,41 @@ using Microsoft.Maui.Devices;
 
 namespace Esagaweb.Maui.Android.Helpers;
 
-/// <summary>
-/// Breakpoints M3 adaptados a MAUI Android.
-/// Compact &lt;600dp (teléfono), Medium 600-840 (plegable/tablet chica), Expanded &gt;840 (tablet).
-/// Se usa con VisualStateManager + SizeChanged de página.
-/// </summary>
+/// <summary>Responsive breakpoints for phone, foldable, and tablet widths.</summary>
 public enum M3Breakpoint
 {
-    /// <summary>Teléfono (&lt;600dp).</summary>
+    /// <summary>Phone width below 600 density pixels.</summary>
     Compact,
-    /// <summary>Plegable/tablet chica (600-840dp).</summary>
+    /// <summary>Foldable or small tablet width from 600 to 840 density pixels.</summary>
     Medium,
-    /// <summary>Tablet (&gt;840dp).</summary>
+    /// <summary>Tablet width above 840 density pixels.</summary>
     Expanded
 }
 
-/// <summary>Helpers de responsive M3 (breakpoints, espaciados, columnas).</summary>
+/// <summary>Responsive helpers for breakpoints, spacing, and column counts.</summary>
+/// <example>
+/// <code language="csharp">
+/// var breakpoint = ResponsiveHelper.GetBreakpoint(Width);
+/// Root.Spacing = ResponsiveHelper.SpacingFor(breakpoint);
+/// int columns = ResponsiveHelper.ColumnsFor(breakpoint);
+/// </code>
+/// </example>
 public static class ResponsiveHelper
 {
-    /// <summary>Breakpoint para un ancho en dp.</summary>
+    /// <summary>Returns the breakpoint for a width in density pixels.</summary>
+    /// <param name="widthDp">The available width in density pixels.</param>
+    /// <returns>The matching breakpoint.</returns>
     public static M3Breakpoint GetBreakpoint(double widthDp)
         => widthDp < 600 ? M3Breakpoint.Compact
          : widthDp <= 840 ? M3Breakpoint.Medium
          : M3Breakpoint.Expanded;
 
-    /// <summary>True si el dispositivo es tablet.</summary>
+    /// <summary>Gets a value indicating whether the device is a tablet.</summary>
     public static bool IsTablet => DeviceInfo.Idiom == DeviceIdiom.Tablet;
 
-    /// <summary>Espaciado sugerido por breakpoint (16/24/32).</summary>
+    /// <summary>Returns the suggested spacing for a breakpoint: 16, 24, or 32.</summary>
+    /// <param name="bp">The breakpoint.</param>
+    /// <returns>The spacing in density pixels.</returns>
     public static double SpacingFor(M3Breakpoint bp) => bp switch
     {
         M3Breakpoint.Compact => 16,
@@ -37,7 +44,9 @@ public static class ResponsiveHelper
         _ => 32,
     };
 
-    /// <summary>Columnas sugeridas por breakpoint (1/2/3).</summary>
+    /// <summary>Returns the suggested column count for a breakpoint: 1, 2, or 3.</summary>
+    /// <param name="bp">The breakpoint.</param>
+    /// <returns>The number of columns.</returns>
     public static int ColumnsFor(M3Breakpoint bp) => bp switch
     {
         M3Breakpoint.Compact => 1,

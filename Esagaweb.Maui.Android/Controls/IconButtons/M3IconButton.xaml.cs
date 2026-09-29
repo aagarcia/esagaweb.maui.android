@@ -3,15 +3,28 @@ using Esagaweb.Maui.Android.Controls.Common;
 
 namespace Esagaweb.Maui.Android.Controls.IconButtons;
 
-/// <summary>Botón de solo icono M3 (Standard/Filled/Tonal/Outlined) con glyph MaterialSymbols blindado.</summary>
+/// <summary>Icon-only button for compact toolbar and card actions.</summary>
+/// <remarks>Supports Standard, Filled, Tonal, and Outlined variants with automatic light and dark theme colors. Shows a reduced opacity treatment when disabled. Register fonts and theme dictionaries with the setup method before use.</remarks>
+/// <example>
+/// <code><![CDATA[
+/// <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+///              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+///              xmlns:iconbtn="clr-namespace:Esagaweb.Maui.Android.Controls.IconButtons;assembly=Esagaweb.Maui.Android"
+///              xmlns:common="clr-namespace:Esagaweb.Maui.Android.Controls.Common;assembly=Esagaweb.Maui.Android">
+///     <iconbtn:M3IconButton Variant="Standard"
+///                           Glyph="{x:Static common:M3Icons.Search}"
+///                           Clicked="OnSearchClicked" />
+/// </ContentPage>
+/// ]]></code>
+/// </example>
 public partial class M3IconButton : ContentView
 {
-    /// <summary>Propiedad enlazable para <see cref="Glyph"/>.</summary>
+    /// <summary>Identifies the <see cref="Glyph"/> bindable property.</summary>
     public static readonly BindableProperty GlyphProperty =
         BindableProperty.Create(nameof(Glyph), typeof(string), typeof(M3IconButton), string.Empty,
             propertyChanged: (b, _, _) => ((M3IconButton)b).UpdateIcon());
 
-    /// <summary>Propiedad enlazable para <see cref="Icon"/>.</summary>
+    /// <summary>Identifies the <see cref="Icon"/> bindable property.</summary>
     public static readonly BindableProperty IconProperty =
         BindableProperty.Create(nameof(Icon), typeof(ImageSource), typeof(M3IconButton), null,
             propertyChanged: (b, _, n) =>
@@ -21,44 +34,48 @@ public partial class M3IconButton : ContentView
                 self.UpdateIcon();
             });
 
-    /// <summary>Propiedad enlazable para <see cref="Variant"/>.</summary>
+    /// <summary>Identifies the <see cref="Variant"/> bindable property.</summary>
     public static readonly BindableProperty VariantProperty =
         BindableProperty.Create(nameof(Variant), typeof(M3IconButtonVariant), typeof(M3IconButton),
             M3IconButtonVariant.Standard, propertyChanged: (b, _, _) => ((M3IconButton)b).UpdateAppearance());
 
-    /// <summary>Propiedad enlazable para <see cref="Command"/>.</summary>
+    /// <summary>Identifies the <see cref="Command"/> bindable property.</summary>
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(M3IconButton), null);
 
-    /// <summary>Glyph de fuente MaterialSymbols (estilo M3Icons.Favorite). Prioritario sobre Icon.</summary>
+    /// <summary>Gets or sets the Material Symbols glyph shown on the button. Takes priority over <see cref="Icon"/>. The default is an empty string.</summary>
+    /// <remarks>This is a bindable property.</remarks>
     public string Glyph
     {
         get => (string)GetValue(GlyphProperty);
         set => SetValue(GlyphProperty, value);
     }
 
-    /// <summary>Imagen fallback cuando Glyph está vacío.</summary>
+    /// <summary>Gets or sets the image shown when <see cref="Glyph"/> is empty. The default is null.</summary>
+    /// <remarks>This is a bindable property.</remarks>
     public ImageSource? Icon
     {
         get => (ImageSource?)GetValue(IconProperty);
         set => SetValue(IconProperty, value);
     }
 
-    /// <summary>Variante visual. Default Standard.</summary>
+    /// <summary>Gets or sets the visual variant. The default is Standard.</summary>
+    /// <remarks>This is a bindable property.</remarks>
     public M3IconButtonVariant Variant
     {
         get => (M3IconButtonVariant)GetValue(VariantProperty);
         set => SetValue(VariantProperty, value);
     }
 
-    /// <summary>Comando al tocar (sin parámetros).</summary>
+    /// <summary>Gets or sets the command invoked when the button is tapped. The command receives no parameter. The default is null.</summary>
+    /// <remarks>This is a bindable property.</remarks>
     public ICommand? Command
     {
         get => (ICommand?)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>Initializes a new instance of the <see cref="M3IconButton"/> class.</summary>
     public M3IconButton()
     {
         InitializeComponent();
@@ -132,6 +149,6 @@ public partial class M3IconButton : ContentView
     private void OnPointerPressed(object? sender, PointerEventArgs e) => RootBorder.Opacity = 0.7;
     private void OnPointerReleased(object? sender, PointerEventArgs e) => RootBorder.Opacity = IsEnabled ? 1 : 0.38;
 
-    /// <summary>Se dispara al tocar (si está habilitado).</summary>
+    /// <summary>Occurs when the button is tapped and the button is enabled.</summary>
     public event EventHandler? Clicked;
 }

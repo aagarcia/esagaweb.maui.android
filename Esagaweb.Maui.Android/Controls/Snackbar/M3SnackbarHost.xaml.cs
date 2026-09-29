@@ -2,20 +2,23 @@ using Esagaweb.Maui.Android.Controls.Common;
 
 namespace Esagaweb.Maui.Android.Controls.Snackbar;
 
-/// <summary>
-/// Anfitrión visual de <see cref="M3SnackbarQueue"/> (como Flutter ScaffoldMessenger):
-/// muestra <c>Current</c>, auto-cierra por duración y avanza la cola.
-/// Uso: una instancia al pie de la página + <c>Queue.Enqueue(...)</c>.
-/// </summary>
+/// <summary>Visual host for a <see cref="M3SnackbarQueue"/>. It shows the current request and advances the queue.</summary>
+/// <remarks>Place one instance at the bottom of the page and add notices with <see cref="Show"/>.</remarks>
+/// <example>
+/// <code language="csharp">
+/// snackbarHost.Show("Saved");
+/// snackbarHost.Show("Photo deleted", "Undo", TimeSpan.FromSeconds(5));
+/// </code>
+/// </example>
 public partial class M3SnackbarHost : ContentView
 {
-    /// <summary>Cola FIFO que alimenta al host.</summary>
+    /// <summary>Gets the first-in first-out queue that feeds the host.</summary>
     public M3SnackbarQueue Queue { get; } = new();
 
     private IDispatcherTimer? _timer;
     private M3SnackbarRequest? _shown;
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>Initializes a new instance of the <see cref="M3SnackbarHost"/> class.</summary>
     public M3SnackbarHost()
     {
         InitializeComponent();
@@ -31,10 +34,13 @@ public partial class M3SnackbarHost : ContentView
         Refresh();
     }
 
-    /// <summary>Se dispara al tocar el botón de acción del aviso.</summary>
+    /// <summary>Occurs when the notice action button is tapped.</summary>
     public event EventHandler? ActionInvoked;
 
-    /// <summary>Encola un aviso (texto + acción opcional + duración opcional).</summary>
+    /// <summary>Enqueues a notice with message text, optional action text, and optional duration.</summary>
+    /// <param name="message">The message text to display.</param>
+    /// <param name="actionText">The action button text. Null means no action button. The default is null.</param>
+    /// <param name="duration">The visible duration. Null means the theme default duration. The default is null.</param>
     public void Show(string message, string? actionText = null, TimeSpan? duration = null)
         => Queue.Enqueue(new M3SnackbarRequest(message, actionText, duration));
 
@@ -62,7 +68,7 @@ public partial class M3SnackbarHost : ContentView
 
     private void ApplyTheme()
     {
-        // Barra siempre oscura como Flutter (claves light fijas, no themed).
+        // Bar always uses the dark tone (fixed light keys, not themed).
         Bar.BackgroundColor = M3ControlHelper.Res("M3OnSurface");
         MessageLabel.TextColor = M3ControlHelper.Res("M3Surface");
         ActionButton.TextColor = M3ControlHelper.Res("M3PrimaryContainer");

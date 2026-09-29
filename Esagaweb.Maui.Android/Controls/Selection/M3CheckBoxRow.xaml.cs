@@ -3,48 +3,89 @@ using Esagaweb.Maui.Android.Controls.Common;
 
 namespace Esagaweb.Maui.Android.Controls.Selection;
 
-/// <summary>Fila M3: CheckBox nativo themado + etiqueta Nunito. Toda la fila alterna el valor.</summary>
+/// <summary>
+/// Row with a themed check box and a label. Tapping the row toggles the value.
+/// </summary>
+/// <remarks>
+/// Uses theme resources for on-surface text and primary check box colors.
+/// </remarks>
+/// <example>
+/// <code lang="XAML">
+/// <![CDATA[
+/// <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+///              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+///              xmlns:sel="clr-namespace:Esagaweb.Maui.Android.Controls.Selection;assembly=Esagaweb.Maui.Android">
+///     <sel:M3CheckBoxRow Text="Receive promotional email" IsChecked="True" />
+/// </ContentPage>
+/// ]]>
+/// </code>
+/// </example>
 public partial class M3CheckBoxRow : ContentView
 {
-    /// <summary>Propiedad enlazable para <see cref="Text"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Text"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(Text), typeof(string), typeof(M3CheckBoxRow), string.Empty,
             propertyChanged: (b, _, n) => ((M3CheckBoxRow)b).RowLabel.Text = (string?)n ?? string.Empty);
 
-    /// <summary>Propiedad enlazable para <see cref="IsChecked"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="IsChecked"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty IsCheckedProperty =
         BindableProperty.Create(nameof(IsChecked), typeof(bool), typeof(M3CheckBoxRow), false,
             BindingMode.TwoWay, propertyChanged: (b, _, n) => ((M3CheckBoxRow)b).InnerCheck.IsChecked = (bool)n);
 
-    /// <summary>Propiedad enlazable para <see cref="Command"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Command"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(M3CheckBoxRow), null);
 
-    /// <summary>Etiqueta de la fila.</summary>
+    /// <summary>
+    /// Gets or sets the row label. The default is an empty string.
+    /// </summary>
+    /// <remarks>
+    /// Bindable property. Changing the value updates the inner label.
+    /// </remarks>
     public string Text
     {
         get => (string)GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
 
-    /// <summary>Si está marcada. TwoWay: sirve para cargar y leer de vuelta (ej. formularios API).</summary>
+    /// <summary>
+    /// Gets or sets a value indicating whether the row is checked. The default is false.
+    /// </summary>
+    /// <remarks>
+    /// Bindable property. Supports two-way binding. Changing the value updates the inner check box.
+    /// </remarks>
     public bool IsChecked
     {
         get => (bool)GetValue(IsCheckedProperty);
         set => SetValue(IsCheckedProperty, value);
     }
 
-    /// <summary>Comando al cambiar (recibe el nuevo valor bool).</summary>
+    /// <summary>
+    /// Gets or sets the command run on change, with the new boolean value. The default is null.
+    /// </summary>
+    /// <remarks>
+    /// Bindable property.
+    /// </remarks>
     public ICommand? Command
     {
         get => (ICommand?)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 
-    /// <summary>Se dispara al cambiar (con el nuevo valor).</summary>
+    /// <summary>
+    /// Occurs when the checked state changes, with the new value.
+    /// </summary>
     public event EventHandler<bool>? CheckedChanged;
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="M3CheckBoxRow"/> class.
+    /// </summary>
     public M3CheckBoxRow()
     {
         InitializeComponent();

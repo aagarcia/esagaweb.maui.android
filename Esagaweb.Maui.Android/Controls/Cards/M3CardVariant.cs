@@ -1,15 +1,20 @@
 namespace Esagaweb.Maui.Android.Controls.Cards;
 
 /// <summary>
-/// Variantes M3 de card (igual que Flutter: Card / Card.filled / Card.outlined).
-/// Ver Controls/Cards/M3Card.
+/// Defines the visual variants of the <see cref="M3Card"/> control.
 /// </summary>
 public enum M3CardVariant
 {
-    /// <summary>Con sombra, fondo Surface. Default.</summary>
+    /// <summary>
+    /// Card with a surface background and a shadow. This is the default variant.
+    /// </summary>
     Elevated,
-    /// <summary>Sin sombra, fondo SurfaceVariant.</summary>
+    /// <summary>
+    /// Card with a surface variant background and no shadow.
+    /// </summary>
     Filled,
-    /// <summary>Borde Outline, fondo Surface.</summary>
+    /// <summary>
+    /// Card with a surface background, an outline border and no shadow.
+    /// </summary>
     Outlined
 }

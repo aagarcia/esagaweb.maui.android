@@ -1,14 +1,14 @@
 namespace Esagaweb.Maui.Android.Controls.TopAppBar;
 
-/// <summary>Tipos M3 de TopAppBar. Ver Controls/TopAppBar/M3TopAppBar.</summary>
+/// <summary>Types of the top app bar.</summary>
 public enum M3TopAppBarType
 {
-    /// <summary>Una línea de 64dp. Default.</summary>
+    /// <summary>Single line bar of 64 density pixels. The default type.</summary>
     Small,
-    /// <summary>Título centrado, 64dp.</summary>
+    /// <summary>Centered title bar of 64 density pixels.</summary>
     CenterAligned,
-    /// <summary>Título grande, 112dp.</summary>
+    /// <summary>Bar with a prominent title instead of the compact one.</summary>
     Medium,
-    /// <summary>Título extragrande, 152dp.</summary>
+    /// <summary>Bar with a prominent title in a larger size instead of the compact one.</summary>
     Large
 }

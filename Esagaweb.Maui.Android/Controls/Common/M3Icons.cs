@@ -1,14 +1,17 @@
 namespace Esagaweb.Maui.Android.Controls.Common;
 
 /// <summary>
-/// Todos los iconos Material Symbols Outlined, estilo Flutter (Icons.favorite -> M3Icons.Favorite).
-/// Uso: Glyph="{x:Static common:M3Icons.Favorite}".
-/// Fuente: Resources/Fonts/MaterialSymbolsOutlined.ttf (alias "MaterialSymbols", OFL).
-/// Nombres convertidos de snake_case a PascalCase; los que empiezan con digito llevan prefijo N (123 -> N123).
+/// Provides the Material Symbols Outlined glyphs as string constants.
 /// </summary>
+/// <remarks>
+/// Use a constant as a glyph value, for example <c>Glyph="{x:Static common:M3Icons.Favorite}"</c>.
+/// The glyphs are rendered with the MaterialSymbols font. Names use PascalCase, and names that
+/// start with a digit use an N prefix.
+/// The font file is Resources/Fonts/MaterialSymbolsOutlined.ttf, registered as <c>MaterialSymbols</c> (SIL OFL license).
+/// </remarks>
 public static class M3Icons
 {
-#pragma warning disable CS1591 // Generado: consts autodocumentadas (ver docs/M3Icons.md).
+#pragma warning disable CS1591 // Generated constants; the name is the documentation (see docs/M3Icons.md).
     public const string N10k = "\ue951";
     public const string N10mp = "\ue952";
     public const string N11mp = "\ue953";

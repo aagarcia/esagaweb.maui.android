@@ -3,7 +3,7 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                      x:Class="Esagaweb.Maui.Android.Themes.M3Colors">
 
-    <!-- Baseline M3 (seed #6750A4). Solo-Android. Light + Dark por AppThemeBinding. -->
+    <!-- M3 baseline (seed #6750A4). Android-only. Light + Dark via AppThemeBinding. -->
 
     <!-- Light -->
     <Color x:Key="M3Primary">#6750A4</Color>
@@ -42,7 +42,7 @@
     <Color x:Key="M3DarkError">#F2B8B5</Color>
     <Color x:Key="M3DarkOnError">#601410</Color>
 
-    <!-- Adaptativos: se resuelven en uso con {AppThemeBinding Light={StaticResource M3Primary}, Dark={StaticResource M3DarkPrimary}} -->
+    <!-- Adaptive: resolved at usage with {AppThemeBinding Light={StaticResource M3Primary}, Dark={StaticResource M3DarkPrimary}} -->
 
     <!-- Shapes M3 (dp) -->
     <x:Double x:Key="M3ShapeExtraSmall">4</x:Double>
@@ -51,7 +51,7 @@
     <x:Double x:Key="M3ShapeLarge">16</x:Double>
     <x:Double x:Key="M3ShapeExtraLarge">28</x:Double>
 
-    <!-- Elevación Android (dp) -->
+    <!-- Android elevation (dp) -->
     <x:Double x:Key="M3Elevation1">1</x:Double>
     <x:Double x:Key="M3Elevation2">3</x:Double>
     <x:Double x:Key="M3Elevation3">6</x:Double>

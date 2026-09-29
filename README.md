@@ -137,7 +137,6 @@ the **New component** template and claim one:
 - [ ] Dynamic color / custom seed color theming
 - [ ] Publish to nuget.org
 - [ ] Show `M3NavigationBar` (bar + rail) in the Sample
-- [ ] Translate XML-doc comments (IntelliSense) from Spanish to English
 - [ ] Screenshots and GIFs for every doc page (a perfect first contribution)
 
 ## Contributing

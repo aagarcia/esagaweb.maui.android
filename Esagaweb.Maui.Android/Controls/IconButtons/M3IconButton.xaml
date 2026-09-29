@@ -11,7 +11,7 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="24" />
         </Border.StrokeShape>
-        <!-- Dual: Glyph (SIEMPRE MaterialSymbols en su propio Label) o Imagen fallback -->
+        <!-- Dual: Glyph (ALWAYS MaterialSymbols in its own Label) or fallback Image. -->
         <Grid>
             <Label x:Name="GlyphLabel"
                    FontFamily="MaterialSymbols"

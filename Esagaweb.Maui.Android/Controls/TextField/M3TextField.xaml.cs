@@ -4,14 +4,27 @@ using Microsoft.Maui.Controls.Shapes;
 
 namespace Esagaweb.Maui.Android.Controls.TextField;
 
-/// <summary>
-/// Campo de texto M3 (Filled / Outlined), guiado por Flutter TextField:
-/// label, placeholder, helper/error, leading/trailing glyph (MaterialSymbols),
-/// password, teclado, longitudes. Toda la fila es tocable para enfocar.
-/// </summary>
+/// <summary>Material text field with filled and outlined variants, label, placeholder, and helper or error text.</summary>
+/// <remarks>The whole row can be tapped to focus the field. Leading and trailing glyphs use Material Symbols.</remarks>
+/// <example>
+/// <code language="xaml"><![CDATA[
+/// <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+///              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+///              xmlns:field="clr-namespace:Esagaweb.Maui.Android.Controls.TextField;assembly=Esagaweb.Maui.Android">
+///     <field:M3TextField Label="Name"
+///                        Placeholder="Type your name"
+///                        HelperText="Filled with a leading glyph" />
+///     <field:M3TextField Label="Mail"
+///                        Placeholder="name@mail.com"
+///                        Variant="Outlined"
+///                        IsPassword="False"
+///                        MaxLength="100" />
+/// </ContentPage>
+/// ]]></code>
+/// </example>
 public partial class M3TextField : ContentView
 {
-    /// <summary>Propiedad enlazable para <see cref="Text"/>.</summary>
+    /// <summary>Identifies the <see cref="Text"/> bindable property.</summary>
     public static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(Text), typeof(string), typeof(M3TextField), string.Empty,
             BindingMode.TwoWay, propertyChanged: (b, _, n) =>
@@ -21,180 +34,194 @@ public partial class M3TextField : ContentView
                     self.InnerEntry.Text = (string?)n ?? string.Empty;
             });
 
-    /// <summary>Propiedad enlazable para <see cref="Label"/>.</summary>
+    /// <summary>Identifies the <see cref="Label"/> bindable property.</summary>
     public static readonly BindableProperty LabelProperty =
         BindableProperty.Create(nameof(Label), typeof(string), typeof(M3TextField), string.Empty,
             propertyChanged: (b, _, _) => ((M3TextField)b).UpdateLabels());
 
-    /// <summary>Propiedad enlazable para <see cref="Placeholder"/>.</summary>
+    /// <summary>Identifies the <see cref="Placeholder"/> bindable property.</summary>
     public static readonly BindableProperty PlaceholderProperty =
         BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(M3TextField), string.Empty,
             propertyChanged: (b, _, n) => ((M3TextField)b).InnerEntry.Placeholder = (string?)n ?? string.Empty);
 
-    /// <summary>Propiedad enlazable para <see cref="HelperText"/>.</summary>
+    /// <summary>Identifies the <see cref="HelperText"/> bindable property.</summary>
     public static readonly BindableProperty HelperTextProperty =
         BindableProperty.Create(nameof(HelperText), typeof(string), typeof(M3TextField), string.Empty,
             propertyChanged: (b, _, _) => ((M3TextField)b).UpdateLabels());
 
-    /// <summary>Propiedad enlazable para <see cref="ErrorText"/>.</summary>
+    /// <summary>Identifies the <see cref="ErrorText"/> bindable property.</summary>
     public static readonly BindableProperty ErrorTextProperty =
         BindableProperty.Create(nameof(ErrorText), typeof(string), typeof(M3TextField), string.Empty,
             propertyChanged: (b, _, _) => ((M3TextField)b).UpdateLabels());
 
-    /// <summary>Propiedad enlazable para <see cref="HasError"/>.</summary>
+    /// <summary>Identifies the <see cref="HasError"/> bindable property.</summary>
     public static readonly BindableProperty HasErrorProperty =
         BindableProperty.Create(nameof(HasError), typeof(bool), typeof(M3TextField), false,
             propertyChanged: (b, _, _) => ((M3TextField)b).UpdateAppearance());
 
-    /// <summary>Propiedad enlazable para <see cref="Variant"/>.</summary>
+    /// <summary>Identifies the <see cref="Variant"/> bindable property.</summary>
     public static readonly BindableProperty VariantProperty =
         BindableProperty.Create(nameof(Variant), typeof(M3TextFieldVariant), typeof(M3TextField),
             M3TextFieldVariant.Filled, propertyChanged: (b, _, _) => ((M3TextField)b).UpdateAppearance());
 
-    /// <summary>Propiedad enlazable para <see cref="LeadingGlyph"/>.</summary>
+    /// <summary>Identifies the <see cref="LeadingGlyph"/> bindable property.</summary>
     public static readonly BindableProperty LeadingGlyphProperty =
         BindableProperty.Create(nameof(LeadingGlyph), typeof(string), typeof(M3TextField), string.Empty,
             propertyChanged: (b, _, _) => ((M3TextField)b).UpdateGlyphs());
 
-    /// <summary>Propiedad enlazable para <see cref="TrailingGlyph"/>.</summary>
+    /// <summary>Identifies the <see cref="TrailingGlyph"/> bindable property.</summary>
     public static readonly BindableProperty TrailingGlyphProperty =
         BindableProperty.Create(nameof(TrailingGlyph), typeof(string), typeof(M3TextField), string.Empty,
             propertyChanged: (b, _, _) => ((M3TextField)b).UpdateGlyphs());
 
-    /// <summary>Propiedad enlazable para <see cref="IsPassword"/>.</summary>
+    /// <summary>Identifies the <see cref="IsPassword"/> bindable property.</summary>
     public static readonly BindableProperty IsPasswordProperty =
         BindableProperty.Create(nameof(IsPassword), typeof(bool), typeof(M3TextField), false,
             propertyChanged: (b, _, n) => ((M3TextField)b).InnerEntry.IsPassword = (bool)n);
 
-    /// <summary>Propiedad enlazable para <see cref="Keyboard"/>.</summary>
+    /// <summary>Identifies the <see cref="Keyboard"/> bindable property.</summary>
     public static readonly BindableProperty KeyboardProperty =
         BindableProperty.Create(nameof(Keyboard), typeof(Keyboard), typeof(M3TextField), Keyboard.Default,
             propertyChanged: (b, _, n) => ((M3TextField)b).InnerEntry.Keyboard = (Keyboard)n);
 
-    /// <summary>Propiedad enlazable para <see cref="MaxLength"/>.</summary>
+    /// <summary>Identifies the <see cref="MaxLength"/> bindable property.</summary>
     public static readonly BindableProperty MaxLengthProperty =
         BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(M3TextField), int.MaxValue,
             propertyChanged: (b, _, n) => ((M3TextField)b).InnerEntry.MaxLength = (int)n);
 
-    /// <summary>Propiedad enlazable para <see cref="IsReadOnly"/>.</summary>
+    /// <summary>Identifies the <see cref="IsReadOnly"/> bindable property.</summary>
     public static readonly BindableProperty IsReadOnlyProperty =
         BindableProperty.Create(nameof(IsReadOnly), typeof(bool), typeof(M3TextField), false,
             propertyChanged: (b, _, n) => ((M3TextField)b).InnerEntry.IsReadOnly = (bool)n);
 
-    /// <summary>Propiedad enlazable para <see cref="TrailingCommand"/>.</summary>
+    /// <summary>Identifies the <see cref="TrailingCommand"/> bindable property.</summary>
     public static readonly BindableProperty TrailingCommandProperty =
         BindableProperty.Create(nameof(TrailingCommand), typeof(ICommand), typeof(M3TextField), null);
 
-    /// <summary>Texto escrito. TwoWay: sirve para cargar y leer de vuelta (ej. formularios API).</summary>
+    /// <summary>Gets or sets the entered text. The default is empty.</summary>
+    /// <remarks>Bindable property. Two-way binding supports loading and reading a value back.</remarks>
     public string Text
     {
         get => (string)GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
 
-    /// <summary>Etiqueta superior (12sp).</summary>
+    /// <summary>Gets or sets the top label. The default is empty.</summary>
+    /// <remarks>Bindable property. Changes update the visible labels.</remarks>
     public string Label
     {
         get => (string)GetValue(LabelProperty);
         set => SetValue(LabelProperty, value);
     }
 
-    /// <summary>Texto de ejemplo cuando está vacío.</summary>
+    /// <summary>Gets or sets the sample text shown when the field is empty. The default is empty.</summary>
+    /// <remarks>Bindable property. Changes update the inner entry placeholder.</remarks>
     public string Placeholder
     {
         get => (string)GetValue(PlaceholderProperty);
         set => SetValue(PlaceholderProperty, value);
     }
 
-    /// <summary>Texto de ayuda bajo el campo (se oculta si hay error).</summary>
+    /// <summary>Gets or sets the help text below the field. The default is empty.</summary>
+    /// <remarks>Bindable property. It is hidden when an error is shown.</remarks>
     public string HelperText
     {
         get => (string)GetValue(HelperTextProperty);
         set => SetValue(HelperTextProperty, value);
     }
 
-    /// <summary>Texto de error (requiere <see cref="HasError"/>).</summary>
+    /// <summary>Gets or sets the error text. The default is empty.</summary>
+    /// <remarks>Bindable property. It is shown when <see cref="HasError"/> is true.</remarks>
     public string ErrorText
     {
         get => (string)GetValue(ErrorTextProperty);
         set => SetValue(ErrorTextProperty, value);
     }
 
-    /// <summary>Si muestra estado de error. Default false.</summary>
+    /// <summary>Gets or sets a value indicating whether the error state is shown. The default is false.</summary>
+    /// <remarks>Bindable property. Changes update the field appearance.</remarks>
     public bool HasError
     {
         get => (bool)GetValue(HasErrorProperty);
         set => SetValue(HasErrorProperty, value);
     }
 
-    /// <summary>Variante visual. Default Filled.</summary>
+    /// <summary>Gets or sets the visual variant. The default is <see cref="M3TextFieldVariant.Filled"/>.</summary>
+    /// <remarks>Bindable property. Changes update the field appearance.</remarks>
     public M3TextFieldVariant Variant
     {
         get => (M3TextFieldVariant)GetValue(VariantProperty);
         set => SetValue(VariantProperty, value);
     }
 
-    /// <summary>Glyph MaterialSymbols a la izquierda (ej. M3Icons.Search).</summary>
+    /// <summary>Gets or sets the Material Symbols glyph on the left side. The default is empty.</summary>
+    /// <remarks>Bindable property. Changes update the visible glyphs.</remarks>
     public string LeadingGlyph
     {
         get => (string)GetValue(LeadingGlyphProperty);
         set => SetValue(LeadingGlyphProperty, value);
     }
 
-    /// <summary>Glyph MaterialSymbols a la derecha, tocable vía TrailingCommand.</summary>
+    /// <summary>Gets or sets the Material Symbols glyph on the right side. The default is empty.</summary>
+    /// <remarks>Bindable property. Tapping it runs <see cref="TrailingCommand"/>.</remarks>
     public string TrailingGlyph
     {
         get => (string)GetValue(TrailingGlyphProperty);
         set => SetValue(TrailingGlyphProperty, value);
     }
 
-    /// <summary>Si oculta lo escrito (contraseñas). Default false.</summary>
+    /// <summary>Gets or sets a value indicating whether the entered text is hidden. The default is false.</summary>
+    /// <remarks>Bindable property. Changes update the inner entry.</remarks>
     public bool IsPassword
     {
         get => (bool)GetValue(IsPasswordProperty);
         set => SetValue(IsPasswordProperty, value);
     }
 
-    /// <summary>Teclado a mostrar. Default <see cref="Keyboard.Default"/>.</summary>
+    /// <summary>Gets or sets the keyboard to display. The default is <see cref="Keyboard.Default"/>.</summary>
+    /// <remarks>Bindable property. Changes update the inner entry.</remarks>
     public Keyboard Keyboard
     {
         get => (Keyboard)GetValue(KeyboardProperty);
         set => SetValue(KeyboardProperty, value);
     }
 
-    /// <summary>Máximo de caracteres. Default sin límite.</summary>
+    /// <summary>Gets or sets the maximum number of characters. The default is no limit.</summary>
+    /// <remarks>Bindable property. Changes update the inner entry.</remarks>
     public int MaxLength
     {
         get => (int)GetValue(MaxLengthProperty);
         set => SetValue(MaxLengthProperty, value);
     }
 
-    /// <summary>Si es solo lectura. Default false.</summary>
+    /// <summary>Gets or sets a value indicating whether the field is read only. The default is false.</summary>
+    /// <remarks>Bindable property. Changes update the inner entry.</remarks>
     public bool IsReadOnly
     {
         get => (bool)GetValue(IsReadOnlyProperty);
         set => SetValue(IsReadOnlyProperty, value);
     }
 
-    /// <summary>Comando al tocar el icono trailing (ej. limpiar, mostrar contraseña).</summary>
+    /// <summary>Gets or sets the command run when the trailing glyph is tapped. The default is null.</summary>
+    /// <remarks>Bindable property.</remarks>
     public ICommand? TrailingCommand
     {
         get => (ICommand?)GetValue(TrailingCommandProperty);
         set => SetValue(TrailingCommandProperty, value);
     }
 
-    /// <summary>Se dispara al cambiar el texto.</summary>
+    /// <summary>Occurs when the text changes.</summary>
     public event EventHandler<TextChangedEventArgs>? TextChanged;
-    /// <summary>Se dispara al confirmar (enter/listón).</summary>
+    /// <summary>Occurs when the user confirms the entry.</summary>
     public event EventHandler? Completed;
 
     private bool _focused;
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>Initializes a new instance of the <see cref="M3TextField"/> class.</summary>
     public M3TextField()
     {
         InitializeComponent();
-        // Blindaje de fuentes: iconos SIEMPRE MaterialSymbols, texto Nunito.
+        // Font shielding: glyphs always use MaterialSymbols, text uses Nunito.
         LeadingGlyphLabel.FontFamily = "MaterialSymbols";
         TrailingGlyphLabel.FontFamily = "MaterialSymbols";
         FieldLabel.FontFamily = "NunitoSemiBold";
@@ -220,7 +247,7 @@ public partial class M3TextField : ContentView
         UpdateAppearance();
     }
 
-    /// <summary>Pone el foco en el campo.</summary>
+    /// <summary>Sets the focus to the field.</summary>
     public void FocusField() => InnerEntry.Focus();
 
     /// <inheritdoc/>
@@ -239,7 +266,7 @@ public partial class M3TextField : ContentView
 
     private void UpdateGlyphs()
     {
-        // Reafirmar: el estilo implícito Nunito nunca debe pisar los glyphs.
+        // Reassert: the implicit Nunito style must never override the glyphs.
         LeadingGlyphLabel.FontFamily = "MaterialSymbols";
         TrailingGlyphLabel.FontFamily = "MaterialSymbols";
         LeadingGlyphLabel.Text = LeadingGlyph;
@@ -271,7 +298,7 @@ public partial class M3TextField : ContentView
         Opacity = enabled ? 1 : 0.6;
         InnerEntry.IsEnabled = enabled;
 
-        // Colores de contenido.
+        // Content colors.
         if (error)
         {
             M3ControlHelper.SetThemed(FieldLabel, global::Microsoft.Maui.Controls.Label.TextColorProperty, "M3Error", "M3DarkError");
@@ -297,7 +324,7 @@ public partial class M3TextField : ContentView
             M3ControlHelper.SetThemed(FieldBorder, Border.BackgroundColorProperty, "M3SurfaceVariant", "M3DarkSurfaceVariant");
             FieldBorder.StrokeThickness = 0;
             FieldBorder.Stroke = Colors.Transparent;
-            // Indicador inferior.
+            // Bottom indicator.
             IndicatorLine.IsVisible = true;
             IndicatorLine.HeightRequest = _focused
                 ? M3ControlHelper.ResDouble("M3TextFieldIndicatorActive", 2)

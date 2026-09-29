@@ -12,8 +12,8 @@
         <HorizontalStackLayout Spacing="8"
                                VerticalOptions="Center"
                                HorizontalOptions="Center">
-            <!-- Dual: Glyph (SIEMPRE MaterialSymbols en su propio Label) o Imagen fallback.
-                 No poner texto Nunito + glyph en el mismo Label: cada fuente en su Label. -->
+            <!-- Dual: Glyph (ALWAYS MaterialSymbols in its own Label) or fallback Image.
+                 Do not mix Nunito text + glyph in the same Label: one font per Label. -->
             <Label x:Name="GlyphLabel"
                    FontFamily="MaterialSymbols"
                    FontSize="18"

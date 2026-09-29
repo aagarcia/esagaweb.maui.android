@@ -12,7 +12,7 @@
         </Border.StrokeShape>
         <HorizontalStackLayout Spacing="4"
                                VerticalOptions="Center">
-            <!-- Leading: SIEMPRE MaterialSymbols en su propio Label. -->
+            <!-- Leading: ALWAYS MaterialSymbols in its own Label. -->
             <Label x:Name="GlyphLabel"
                    FontFamily="MaterialSymbols"
                    FontSize="18"

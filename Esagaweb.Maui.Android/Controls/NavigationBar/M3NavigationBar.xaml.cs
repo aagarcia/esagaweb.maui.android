@@ -8,35 +8,74 @@ using Microsoft.Maui.Layouts;
 namespace Esagaweb.Maui.Android.Controls.NavigationBar;
 
 /// <summary>
-/// NavigationBar M3 con 3-5 destinos: pastilla indicadora + icono + etiqueta.
-/// Responsive: Compact/Medium = barra inferior (80dp); Expanded = rail lateral (80dp).
-/// El padre decide la posición; la barra ajusta orientación con ApplyBreakpoint.
+/// Navigation bar with an indicator pill, an icon, and a label for three to five destinations.
 /// </summary>
+/// <remarks>
+/// Uses a horizontal bar in compact and medium widths and a vertical rail in expanded widths.
+/// The parent control decides the position and calls <see cref="ApplyBreakpoint(double)"/> to update the orientation.
+/// Uses theme resources for surface, secondary container, and on-surface colors.
+/// </remarks>
+/// <example>
+/// <code lang="XAML">
+/// <![CDATA[
+/// <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+///              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+///              xmlns:nav="clr-namespace:Esagaweb.Maui.Android.Controls.NavigationBar;assembly=Esagaweb.Maui.Android"
+///              xmlns:common="clr-namespace:Esagaweb.Maui.Android.Controls.Common;assembly=Esagaweb.Maui.Android">
+///     <nav:M3NavigationBar SelectedIndex="0">
+///         <nav:M3NavigationItem Label="Home"
+///                               Glyph="{x:Static common:M3Icons.Home}"
+///                               SelectedGlyph="{x:Static common:M3Icons.HomeFilled}" />
+///         <nav:M3NavigationItem Label="Search"
+///                               Glyph="{x:Static common:M3Icons.Search}" />
+///         <nav:M3NavigationItem Label="Settings"
+///                               Glyph="{x:Static common:M3Icons.Settings}" />
+///     </nav:M3NavigationBar>
+/// </ContentPage>
+/// ]]>
+/// </code>
+/// </example>
 [ContentProperty(nameof(Destinations))]
 public partial class M3NavigationBar : ContentView
 {
-    /// <summary>Propiedad enlazable para <see cref="SelectedIndex"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="SelectedIndex"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty SelectedIndexProperty =
         BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(M3NavigationBar), 0,
             BindingMode.TwoWay,
             propertyChanged: (b, _, _) => ((M3NavigationBar)b).RebuildItems());
 
-    /// <summary>Destinos (3-5 M3NavigationItem). Hijos XAML van aquí.</summary>
+    /// <summary>
+    /// Gets the navigation destinations.
+    /// </summary>
+    /// <remarks>
+    /// Add three to five <see cref="M3NavigationItem"/> objects. XAML children go here.
+    /// </remarks>
     public ObservableCollection<M3NavigationItem> Destinations { get; } = new();
 
-    /// <summary>Índice seleccionado. TwoWay: sirve para ViewModels (ej. tabs desde API).</summary>
+    /// <summary>
+    /// Gets or sets the selected index. The default is 0.
+    /// </summary>
+    /// <remarks>
+    /// Bindable property. Supports two-way binding. Changing the value rebuilds the items.
+    /// </remarks>
     public int SelectedIndex
     {
         get => (int)GetValue(SelectedIndexProperty);
         set => SetValue(SelectedIndexProperty, value);
     }
 
-    /// <summary>Se dispara al cambiar la selección (con el nuevo índice).</summary>
+    /// <summary>
+    /// Occurs when the selection changes, with the new index.
+    /// </summary>
     public event EventHandler<int>? SelectionChanged;
 
     private bool _isRail;
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="M3NavigationBar"/> class.
+    /// </summary>
     public M3NavigationBar()
     {
         InitializeComponent();
@@ -45,14 +84,17 @@ public partial class M3NavigationBar : ContentView
         RebuildItems();
     }
 
-    /// <summary>Responsive: Expanded = rail vertical, resto = barra horizontal.</summary>
+    /// <summary>
+    /// Applies the responsive layout for the specified width and rebuilds the items when the mode changes.
+    /// </summary>
+    /// <param name="widthDp">The available width in density-independent pixels. Values less than or equal to zero are ignored.</param>
     public void ApplyBreakpoint(double widthDp)
     {
         if (widthDp <= 0)
             return;
         var rail = ResponsiveHelper.GetBreakpoint(widthDp) == M3Breakpoint.Expanded;
         if (rail == _isRail && ItemsHost.Children.Count == Destinations.Count)
-            return; // Sin cambio de modo: reconstruir recrearía todas las celdas y realimenta SizeChanged.
+            return; // Without a mode change, rebuilding would recreate every cell.
         _isRail = rail;
         RebuildItems();
     }

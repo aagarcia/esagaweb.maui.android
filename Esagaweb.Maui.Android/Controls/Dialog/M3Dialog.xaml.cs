@@ -4,14 +4,36 @@ using Microsoft.Maui.Controls.Shapes;
 namespace Esagaweb.Maui.Android.Controls.Dialog;
 
 /// <summary>
-/// Diálogo M3 (como Flutter AlertDialog / showDialog): título, mensaje o
-/// contenido propio, acción confirmar + cancelar. Se muestra con
-/// <see cref="ShowAsync"/> (modal, devuelve true/false/null) o incrustado.
+/// Represents a Material 3 dialog with a title, a message or custom content, and confirm and cancel actions.
 /// </summary>
+/// <remarks>
+/// The dialog can be shown modally with <see cref="ShowAsync"/> or embedded inline as content.
+/// <see cref="Confirmed"/> is raised when the dialog is confirmed and <see cref="Cancelled"/> is raised
+/// when the dialog is canceled. Empty action labels hide their buttons. Requires <c>UseEsagaweb</c>
+/// font registration and the M3 theme resource dictionaries.
+/// </remarks>
+/// <example>
+/// <code language="csharp"><![CDATA[
+/// var dialog = new M3Dialog
+/// {
+///     Title = "Add to cart",
+///     Message = "Confirm the selected size before continuing.",
+///     ConfirmText = "Add",
+///     CancelText = "Cancel",
+/// };
+/// bool? result = await dialog.ShowAsync(Navigation);
+/// if (result == true)
+/// {
+///     // The dialog was confirmed.
+/// }
+/// ]]></code>
+/// </example>
 [ContentProperty(nameof(DialogContent))]
 public partial class M3Dialog : ContentView
 {
-    /// <summary>Propiedad enlazable para <see cref="Title"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Title"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty TitleProperty =
         BindableProperty.Create(nameof(Title), typeof(string), typeof(M3Dialog), string.Empty,
             propertyChanged: (b, _, n) =>
@@ -21,7 +43,9 @@ public partial class M3Dialog : ContentView
                 self.TitleLabel.IsVisible = !string.IsNullOrEmpty((string?)n);
             });
 
-    /// <summary>Propiedad enlazable para <see cref="Message"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="Message"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty MessageProperty =
         BindableProperty.Create(nameof(Message), typeof(string), typeof(M3Dialog), string.Empty,
             propertyChanged: (b, _, n) =>
@@ -31,45 +55,63 @@ public partial class M3Dialog : ContentView
                 self.MessageLabel.IsVisible = !string.IsNullOrEmpty((string?)n);
             });
 
-    /// <summary>Propiedad enlazable para <see cref="ConfirmText"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="ConfirmText"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty ConfirmTextProperty =
         BindableProperty.Create(nameof(ConfirmText), typeof(string), typeof(M3Dialog), "OK",
             propertyChanged: (b, _, n) => ((M3Dialog)b).UpdateActions());
 
-    /// <summary>Propiedad enlazable para <see cref="CancelText"/>.</summary>
+    /// <summary>
+    /// Identifies the <see cref="CancelText"/> bindable property.
+    /// </summary>
     public static readonly BindableProperty CancelTextProperty =
         BindableProperty.Create(nameof(CancelText), typeof(string), typeof(M3Dialog), string.Empty,
             propertyChanged: (b, _, n) => ((M3Dialog)b).UpdateActions());
 
-    /// <summary>Título. Vacío = se oculta.</summary>
+    /// <summary>
+    /// Gets or sets the dialog title. An empty value hides the title. The default is <see cref="string.Empty"/>.
+    /// </summary>
+    /// <remarks>This is a bindable property.</remarks>
     public string Title
     {
         get => (string)GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
     }
 
-    /// <summary>Mensaje. Vacío = se oculta.</summary>
+    /// <summary>
+    /// Gets or sets the dialog message. An empty value hides the message. The default is <see cref="string.Empty"/>.
+    /// </summary>
+    /// <remarks>This is a bindable property.</remarks>
     public string Message
     {
         get => (string)GetValue(MessageProperty);
         set => SetValue(MessageProperty, value);
     }
 
-    /// <summary>Texto del botón de confirmar. Default "OK".</summary>
+    /// <summary>
+    /// Gets or sets the confirm button text. An empty value hides the button. The default is <c>OK</c>.
+    /// </summary>
+    /// <remarks>This is a bindable property.</remarks>
     public string ConfirmText
     {
         get => (string)GetValue(ConfirmTextProperty);
         set => SetValue(ConfirmTextProperty, value);
     }
 
-    /// <summary>Texto del botón de cancelar. Vacío = sin botón. Default vacío.</summary>
+    /// <summary>
+    /// Gets or sets the cancel button text. An empty value hides the button. The default is <see cref="string.Empty"/>.
+    /// </summary>
+    /// <remarks>This is a bindable property.</remarks>
     public string CancelText
     {
         get => (string)GetValue(CancelTextProperty);
         set => SetValue(CancelTextProperty, value);
     }
 
-    /// <summary>Contenido propio en lugar del mensaje (ej. un M3TextField).</summary>
+    /// <summary>
+    /// Gets or sets custom content displayed in the dialog body. A <c>null</c> value hides the custom content area.
+    /// </summary>
     public View? DialogContent
     {
         get => CustomContent.Content;
@@ -80,12 +122,18 @@ public partial class M3Dialog : ContentView
         }
     }
 
-    /// <summary>Se dispara al confirmar.</summary>
+    /// <summary>
+    /// Occurs when the dialog is confirmed.
+    /// </summary>
     public event EventHandler? Confirmed;
-    /// <summary>Se dispara al cancelar.</summary>
+    /// <summary>
+    /// Occurs when the dialog is canceled.
+    /// </summary>
     public event EventHandler? Cancelled;
 
-    /// <summary>Crea una nueva instancia.</summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="M3Dialog"/> class.
+    /// </summary>
     public M3Dialog()
     {
         InitializeComponent();
@@ -102,12 +150,16 @@ public partial class M3Dialog : ContentView
     private TaskCompletionSource<bool?>? _tcs;
     private Page? _hostPage;
 
-    /// <summary>Muestra el diálogo como modal. true=confirmar, false=cancelar, null=cerrado por atrás.</summary>
+    /// <summary>
+    /// Displays the dialog as a modal page.
+    /// </summary>
+    /// <param name="navigation">The navigation service used to push the modal host page.</param>
+    /// <returns>A task that completes when the dialog closes. Its result is <c>true</c> when the dialog is confirmed, <c>false</c> when the dialog is canceled, and <c>null</c> when the dialog is dismissed without a choice.</returns>
     public async Task<bool?> ShowAsync(INavigation navigation)
     {
         _tcs = new TaskCompletionSource<bool?>();
-        // Desvincular de un padre anterior ANTES de agregarlo al host:
-        // hacerlo después lo arrancaría de su propia página host.
+        // Detach from a previous parent BEFORE adding it to the host:
+        // doing it afterwards would remove it from its own host page.
         ParentRefresh();
         _hostPage = new ContentPage
         {
@@ -137,7 +189,7 @@ public partial class M3Dialog : ContentView
 
     private void ParentRefresh()
     {
-        // El ContentView debe desvincularse de su padre anterior antes del modal.
+        // The ContentView must detach from its previous parent before the modal.
         (Parent as Layout)?.Children.Remove(this);
     }
 

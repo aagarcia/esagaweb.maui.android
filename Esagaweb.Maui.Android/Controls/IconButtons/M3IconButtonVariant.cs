@@ -1,14 +1,14 @@
 namespace Esagaweb.Maui.Android.Controls.IconButtons;
 
-/// <summary>Variantes M3 de IconButton. Ver Controls/IconButtons/M3IconButton.</summary>
+/// <summary>Defines the visual variants of the icon button.</summary>
 public enum M3IconButtonVariant
 {
-    /// <summary>Solo icono, sin fondo. Default.</summary>
+    /// <summary>Icon without background. This is the default.</summary>
     Standard,
-    /// <summary>Relleno Primary.</summary>
+    /// <summary>Filled background with primary color.</summary>
     Filled,
-    /// <summary>Relleno SecondaryContainer.</summary>
+    /// <summary>Filled background with secondary container color.</summary>
     Tonal,
-    /// <summary>Borde Outline, fondo transparente.</summary>
+    /// <summary>Transparent background with outline border.</summary>
     Outlined
 }

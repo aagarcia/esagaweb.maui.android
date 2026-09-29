@@ -3,7 +3,7 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                      x:Class="Esagaweb.Maui.Android.Themes.M3Buttons">
 
-    <!-- Dimensiones compartidas de botones (carpeta Themes). Colores en M3Colors.xaml. -->
+    <!-- Shared button dimensions (Themes folder). Colors in M3Colors.xaml. -->
 
     <!-- M3Button -->
     <x:Double x:Key="M3ButtonHeightCompact">40</x:Double>
@@ -17,7 +17,7 @@
     <x:Double x:Key="M3FabRegular">56</x:Double>
     <x:Double x:Key="M3FabLarge">96</x:Double>
 
-    <!-- M3IconButton (táctil 48, icono 24) -->
+    <!-- M3IconButton (touch target 48, icon 24) -->
     <x:Double x:Key="M3IconButtonSize">48</x:Double>
     <x:Double x:Key="M3IconSize">24</x:Double>
 </ResourceDictionary>

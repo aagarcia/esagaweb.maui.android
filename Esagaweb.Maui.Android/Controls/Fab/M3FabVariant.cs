@@ -1,14 +1,14 @@
 namespace Esagaweb.Maui.Android.Controls.Fab;
 
-/// <summary>Variantes de color M3 del FAB (ver Controls/Fab/M3Fab).</summary>
+/// <summary>Defines the color variants of the floating action button.</summary>
 public enum M3FabVariant
 {
-    /// <summary>PrimaryContainer/OnPrimaryContainer. Default.</summary>
+    /// <summary>Primary container background with on primary container icon. This is the default.</summary>
     Primary,
-    /// <summary>SurfaceVariant + icono Primary.</summary>
+    /// <summary>Surface variant background with primary icon.</summary>
     Surface,
-    /// <summary>SecondaryContainer/OnSecondaryContainer.</summary>
+    /// <summary>Secondary container background with on secondary container icon.</summary>
     Secondary,
-    /// <summary>TertiaryContainer/OnTertiaryContainer.</summary>
+    /// <summary>Tertiary container background with on tertiary container icon.</summary>
     Tertiary
 }

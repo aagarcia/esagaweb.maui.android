@@ -1,10 +1,10 @@
 namespace Esagaweb.Maui.Android.Controls.Fab;
 
-/// <summary>Posición del FAB flotante (abajo-derecha o abajo-centro).</summary>
+/// <summary>Defines the position of the floating content inside the host.</summary>
 public enum M3FabLocation
 {
-    /// <summary>Abajo a la derecha. Default.</summary>
+    /// <summary>Bottom end position. This is the default.</summary>
     End,
-    /// <summary>Abajo centrado.</summary>
+    /// <summary>Bottom center position.</summary>
     Center
 }

@@ -1,10 +1,10 @@
 namespace Esagaweb.Maui.Android.Controls.TextField;
 
-/// <summary>Variantes M3 del campo de texto (guiado por Flutter TextField/InputDecoration).</summary>
+/// <summary>Visual variants of the text field.</summary>
 public enum M3TextFieldVariant
 {
-    /// <summary>Relleno SurfaceVariant + indicador inferior. Default.</summary>
+    /// <summary>Filled background with a bottom indicator line. The default variant.</summary>
     Filled,
-    /// <summary>Borde Outline, fondo transparente.</summary>
+    /// <summary>Outline border with a transparent background.</summary>
     Outlined
 }

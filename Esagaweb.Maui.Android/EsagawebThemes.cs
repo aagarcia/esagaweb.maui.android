@@ -2,14 +2,20 @@ using Esagaweb.Maui.Android.Themes;
 
 namespace Esagaweb.Maui.Android;
 
-/// <summary>
-/// Fusiona los 6 diccionarios M3 en la app consumidora.
-/// Llamar una vez en el ctor de App (después de InitializeComponent):
-/// <c>EsagawebThemes.Apply();</c>
-/// </summary>
+/// <summary>Merges the six Material theme dictionaries into the consuming app.</summary>
+/// <remarks>Call <see cref="Apply"/> once in the app constructor, after bootstrapping the resources.</remarks>
 public static class EsagawebThemes
 {
-    /// <summary>Fusiona los 6 diccionarios M3 en <see cref="Application.Current"/> (si existe).</summary>
+    /// <summary>Merges the six Material dictionaries into the current application resources, when available.</summary>
+    /// <example>
+    /// <code language="csharp">
+    /// public App()
+    /// {
+    ///     InitializeComponent();
+    ///     EsagawebThemes.Apply();
+    /// }
+    /// </code>
+    /// </example>
     public static void Apply()
     {
         var merged = Application.Current?.Resources.MergedDictionaries;

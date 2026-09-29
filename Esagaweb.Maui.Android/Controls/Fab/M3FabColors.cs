@@ -1,12 +1,12 @@
 namespace Esagaweb.Maui.Android.Controls.Fab;
 
-/// <summary>
-/// Mapeo puro variante → claves de color de Themes/M3Colors.xaml (sin UI, testeable).
-/// Cada variante devuelve (fondoLight, fondoDark, iconoLight, iconoDark).
-/// </summary>
+/// <summary>Provides the theme resource keys for each floating action button color variant.</summary>
+/// <remarks>Contains no user interface logic. The keys resolve against the shared theme dictionaries for light and dark modes.</remarks>
 public static class M3FabColors
 {
-    /// <summary>Resuelve las 4 claves de recurso para la variante indicada.</summary>
+    /// <summary>Resolves the background and icon theme resource keys for the specified variant.</summary>
+    /// <param name="variant">The color variant to resolve.</param>
+    /// <returns>The light and dark resource keys for the background and the icon.</returns>
     public static (string BgLight, string BgDark, string IconLight, string IconDark) Resolve(M3FabVariant variant) =>
         variant switch
         {
