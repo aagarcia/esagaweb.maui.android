@@ -21,6 +21,37 @@ Material 3 components still to build: pick one and it's yours (see [Roadmap](#ro
 
 ---
 
+## Screenshots
+
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/images/catalog.png" width="200" alt="Cards, chips, top app bar"><br><sub>Cards, chips, top app bar</sub></td>
+    <td align="center"><img src="docs/images/detail.png" width="200" alt="Buttons, FAB, badge"><br><sub>Buttons, FAB, badge</sub></td>
+    <td align="center"><img src="docs/images/dialog.png" width="200" alt="M3Dialog"><br><sub>M3Dialog</sub></td>
+    <td align="center"><img src="docs/images/sheet.png" width="200" alt="M3BottomSheet"><br><sub>M3BottomSheet</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/snackbar.png" width="200" alt="Snackbar"><br><sub>Snackbar</sub></td>
+    <td align="center"><img src="docs/images/checkout.png" width="200" alt="Text fields, radio, checkbox"><br><sub>Text fields, radio, checkbox</sub></td>
+    <td align="center"><img src="docs/images/settings.png" width="200" alt="Switches, slider"><br><sub>Switches, slider</sub></td>
+    <td align="center"><img src="docs/images/flyout.png" width="200" alt="Shell flyout"><br><sub>Shell flyout</sub></td>
+  </tr>
+</table>
+
+Light and dark themes switch automatically with the system:
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/images/catalog-dark.png" width="200" alt="Dark theme"><br><sub>Dark theme</sub></td>
+    <td align="center"><img src="docs/images/checkout-dark.png" width="200" alt="Dark theme: inputs"><br><sub>Dark theme: inputs</sub></td>
+  </tr>
+</table>
+
+<sub>Taken from the included Sample app (its UI text is in Spanish) on an Android emulator.</sub>
+
+---
+
 ## Why use it
 
 - **Two-line setup.** `UseEsagaweb()` + `EsagawebThemes.Apply()`. No manual dictionary merges.
@@ -137,7 +168,7 @@ the **New component** template and claim one:
 - [ ] Dynamic color / custom seed color theming
 - [ ] Publish to nuget.org
 - [ ] Show `M3NavigationBar` (bar + rail) in the Sample
-- [ ] Screenshots and GIFs for every doc page (a perfect first contribution)
+- [ ] GIFs and per-component screenshots for every doc page in `docs/` (a perfect first contribution)
 
 ## Contributing
 

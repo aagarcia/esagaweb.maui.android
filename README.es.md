@@ -18,6 +18,37 @@ breakpoints teléfono/tablet, todo configurado con **dos líneas de código**.
 Es código abierto, es joven y **crece con cada aporte**. Quedan muchos componentes Material 3
 por construir: elige uno y es tuyo (ver [Hoja de ruta](#hoja-de-ruta)).
 
+## Capturas
+
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/images/catalog.png" width="200" alt="Tarjetas, chips, barra superior"><br><sub>Tarjetas, chips, barra superior</sub></td>
+    <td align="center"><img src="docs/images/detail.png" width="200" alt="Botones, FAB, insignia"><br><sub>Botones, FAB, insignia</sub></td>
+    <td align="center"><img src="docs/images/dialog.png" width="200" alt="M3Dialog"><br><sub>M3Dialog</sub></td>
+    <td align="center"><img src="docs/images/sheet.png" width="200" alt="M3BottomSheet"><br><sub>M3BottomSheet</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/snackbar.png" width="200" alt="Snackbar"><br><sub>Snackbar</sub></td>
+    <td align="center"><img src="docs/images/checkout.png" width="200" alt="Campos de texto, radio, checkbox"><br><sub>Campos de texto, radio, checkbox</sub></td>
+    <td align="center"><img src="docs/images/settings.png" width="200" alt="Interruptores, slider"><br><sub>Interruptores, slider</sub></td>
+    <td align="center"><img src="docs/images/flyout.png" width="200" alt="Menú lateral de Shell"><br><sub>Menú lateral de Shell</sub></td>
+  </tr>
+</table>
+
+Los temas claro y oscuro cambian solos con el sistema:
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/images/catalog-dark.png" width="200" alt="Tema oscuro"><br><sub>Tema oscuro</sub></td>
+    <td align="center"><img src="docs/images/checkout-dark.png" width="200" alt="Tema oscuro: campos"><br><sub>Tema oscuro: campos</sub></td>
+  </tr>
+</table>
+
+<sub>Capturas de la app Sample incluida, en un emulador Android.</sub>
+
+---
+
 ## Por qué usarlo
 
 - **Setup de dos líneas:** `UseEsagaweb()` + `EsagawebThemes.Apply()`.
