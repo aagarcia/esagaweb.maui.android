@@ -12,6 +12,7 @@ Versions follow [SemVer](https://semver.org/).
 - `M3Dialog.ShowAsync`: hangs when modal is dismissed with hardware back button (now handles back via `M3ModalHostPage`); idempotent `CloseAsync`; re-entrant `ShowAsync` returns existing task.
 - `M3BottomSheet`: back button did not raise `Dismissed`; `HideAsync` could pop an unrelated page; double scrim tap caused double pop (now uses `M3ModalHostPage`, idempotent `HideAsync`).
 - `M3Fab` / `M3IconButton`: `Command` now respects `CanExecute` and receives `CommandParameter` (previously ignored both).
+- `M3Badge`: dark mode text color used `M3DarkOnPrimary` instead of `M3DarkOnError`.
 - `M3Fab`: disabled state now shows reduced opacity (0.38) matching `M3IconButton`.
 
 ### Changed

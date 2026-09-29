@@ -10,7 +10,7 @@ namespace Esagaweb.Maui.Android.Controls.Badge;
 /// <see cref="ShowZero"/> is <see langword="true"/>, and values above <see cref="MaxCount"/> are shown as
 /// "{MaxCount}+". Set <see cref="IsDot"/> to <see langword="true"/> to show a dot without a number.
 /// The background and text colors follow the current theme through <c>M3Error</c>, <c>M3DarkError</c>,
-/// <c>M3OnError</c> and <c>M3DarkOnPrimary</c>, and the pill height uses <c>M3BadgeSize</c>.
+/// <c>M3OnError</c> and <c>M3DarkOnError</c>, and the pill height uses <c>M3BadgeSize</c>.
 /// The host application must register fonts with <c>UseEsagaweb</c> so the NunitoSemiBold font resolves.
 /// The badge does not position itself. Overlay it on other content with a <c>Grid</c>.
 /// </remarks>
@@ -124,6 +124,6 @@ public partial class M3Badge : ContentView
         Pill.WidthRequest = IsDot ? 8 : -1;
         Pill.HeightRequest = IsDot ? 8 : M3ControlHelper.ResDouble("M3BadgeSize", 16);
         M3ControlHelper.SetThemed(Pill, Border.BackgroundColorProperty, "M3Error", "M3DarkError");
-        M3ControlHelper.SetThemed(CountLabel, Label.TextColorProperty, "M3OnError", "M3DarkOnPrimary");
+        M3ControlHelper.SetThemed(CountLabel, Label.TextColorProperty, "M3OnError", "M3DarkOnError");
     }
 }
