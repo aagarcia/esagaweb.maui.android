@@ -16,6 +16,7 @@ Versions follow [SemVer](https://semver.org/).
 - `M3Fab`: disabled state now shows reduced opacity (0.38) matching `M3IconButton`.
 - `M3BottomSheet` / `M3TextField`: the scrim, the drag handle and the indicator line turned opaque dark gray in apps using the default MAUI template styles (implicit `BoxView` style); their `BackgroundColor` is now set explicitly.
 - `M3TextField` (Android): the native `EditText` underline was drawn inside the field; it is now hidden.
+- `M3RadioRow` (Android): the radio circle used the app's `colorAccent` instead of the Material 3 palette (nearly invisible in dark theme); it now uses `M3Primary` / `M3DarkPrimary` when checked and the outline color when unchecked, and follows live theme changes.
 
 ### Changed
 - XML documentation (IntelliSense) translated to English and expanded: defaults, parameters, return values and XAML examples.
