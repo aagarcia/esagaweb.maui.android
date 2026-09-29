@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net10.0;net10.0-android</TargetFrameworks>
+		<RootNamespace>Esagaweb.Maui.Android</RootNamespace>
+		<AssemblyName>Esagaweb.Maui.Android</AssemblyName>
+		<UseMaui>true</UseMaui>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<!-- MAUI pin: latest baked stable (10.0.101). See CONTRIBUTING.md. -->
+		<MauiVersion>10.0.101</MauiVersion>
+		<MauiXamlInflator>SourceGen</MauiXamlInflator>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+
+		<!-- NuGet package metadata (Esagaweb.Maui.Android). -->
+		<PackageId>Esagaweb.Maui.Android</PackageId>
+		<Version>1.1.0</Version>
+		<Authors>Alex Garcia A./Esagaweb</Authors>
+		<Description>Material 3 component kit for .NET MAUI Android: buttons, FAB, cards, app bars, inputs and overlays, with light/dark theming and responsive layouts.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/aagarcia/esagaweb.maui.android</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/aagarcia/esagaweb.maui.android</PackageProjectUrl>
+		<PackageTags>maui;android;material;material3;material-design;ui;controls;dotnet</PackageTags>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Fuentes M3: viajan con el paquete y se registran vía builder.UseEsagaweb(). -->
+		<MauiFont Include="Resources\Fonts\*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- El SDK no empaqueta MauiFont solo: se empaquetan como contenido +
+		     buildTransitive que las re-registra en el consumidor. -->
+		<None Include="Resources\Fonts\*.ttf" Pack="true" PackagePath="mauifonts\" />
+		<None Include="buildTransitive\Esagaweb.Maui.Android.targets" Pack="true" PackagePath="buildTransitive\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="$(MauiVersion)" />
+	</ItemGroup>
+
+</Project>

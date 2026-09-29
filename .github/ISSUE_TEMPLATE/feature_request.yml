@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest an improvement to an existing control or workflow.
+title: "feat: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What cannot be done today, or what hurts.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: API sketch (properties/events) and behavior on Compact/Medium/Expanded.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I checked `docs/` and the CHANGELOG for related work

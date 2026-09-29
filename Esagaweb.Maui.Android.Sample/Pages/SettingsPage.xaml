@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:appbar="clr-namespace:Esagaweb.Maui.Android.Controls.TopAppBar;assembly=Esagaweb.Maui.Android"
+             xmlns:iconbtn="clr-namespace:Esagaweb.Maui.Android.Controls.IconButtons;assembly=Esagaweb.Maui.Android"
+             xmlns:sel="clr-namespace:Esagaweb.Maui.Android.Controls.Selection;assembly=Esagaweb.Maui.Android"
+             xmlns:buttons="clr-namespace:Esagaweb.Maui.Android.Controls.Buttons;assembly=Esagaweb.Maui.Android"
+             xmlns:prog="clr-namespace:Esagaweb.Maui.Android.Controls.Progress;assembly=Esagaweb.Maui.Android"
+             xmlns:snack="clr-namespace:Esagaweb.Maui.Android.Controls.Snackbar;assembly=Esagaweb.Maui.Android"
+             xmlns:common="clr-namespace:Esagaweb.Maui.Android.Controls.Common;assembly=Esagaweb.Maui.Android"
+             x:Class="Esagaweb.Maui.Android.Sample.Pages.SettingsPage"
+             Shell.NavBarIsVisible="False"
+             Title="Ajustes">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <appbar:M3TopAppBar Title="Ajustes"
+                            Type="CenterAligned"
+                            NavigationGlyph="{x:Static common:M3Icons.Menu}"
+                            NavigationClicked="OnMenuClicked">
+            <appbar:M3TopAppBar.Actions>
+                <iconbtn:M3IconButton Variant="Standard"
+                                      Glyph="{x:Static common:M3Icons.Notifications}"
+                                      Clicked="OnBellClicked" />
+            </appbar:M3TopAppBar.Actions>
+        </appbar:M3TopAppBar>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout x:Name="Root" Padding="16" Spacing="16">
+                <Label Text="Notificaciones"
+                       Style="{StaticResource M3TitleLargeStyle}" />
+                <sel:M3SwitchRow x:Name="NewsSwitch" Text="Novedades y ofertas" IsOn="True" />
+                <sel:M3SwitchRow Text="Solo lectura (desactivado)" IsEnabled="False" />
+                <sel:M3CheckBoxRow x:Name="PromoCheck" Text="Recibir promociones por correo" />
+
+                <Label Text="Apariencia"
+                       Style="{StaticResource M3TitleLargeStyle}" />
+                <sel:M3RadioRow Text="Claro" GroupName="Theme" Value="L" IsSelected="True" />
+                <sel:M3RadioRow Text="Oscuro" GroupName="Theme" Value="D" />
+
+                <Label Text="Brillo de demostración"
+                       Style="{StaticResource M3TitleLargeStyle}" />
+                <sel:M3SliderRow x:Name="BrightSlider" Text="Brillo" Minimum="0" Maximum="100" Value="70" />
+                <Label x:Name="StateLabel"
+                       Style="{StaticResource M3BodyMediumStyle}"
+                       Text="Estado: —" />
+
+                <prog:M3LinearProgress x:Name="SaveProgress" IsVisible="False" Value="0.5" />
+                <buttons:M3Button Text="Guardar ajustes"
+                                  Variant="Tonal"
+                                  Glyph="{x:Static common:M3Icons.Check}"
+                                  Clicked="OnSaveClicked" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <snack:M3SnackbarHost x:Name="Snacks" Grid.Row="2" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Esagaweb.Maui.Android: re-registra las fuentes del paquete como MauiFont
+       en la app consumidora (el SDK no las empaqueta solo). -->
+  <ItemGroup>
+    <MauiFont Include="$(MSBuildThisFileDirectory)..\mauifonts\*.ttf" />
+  </ItemGroup>
+</Project>

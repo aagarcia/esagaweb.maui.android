@@ -1,0 +1,51 @@
+name: Bug report
+description: Report a reproducible problem with a control or the Sample app.
+title: "fix: "
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Package / commit version
+      description: Library version (e.g. 1.1.0) or commit hash.
+      placeholder: "1.1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Controls
+        - Theming (light/dark)
+        - Responsive layout
+        - Sample app
+        - Packaging / fonts
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you saw vs. what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: XAML/C# snippet or steps in the Sample (screen + actions).
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device / emulator
+      placeholder: "Pixel 7 API 36, Compact portrait"
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: Tested on the latest `main`

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cards="clr-namespace:Esagaweb.Maui.Android.Controls.Cards;assembly=Esagaweb.Maui.Android"
+             xmlns:appbar="clr-namespace:Esagaweb.Maui.Android.Controls.TopAppBar;assembly=Esagaweb.Maui.Android"
+             xmlns:iconbtn="clr-namespace:Esagaweb.Maui.Android.Controls.IconButtons;assembly=Esagaweb.Maui.Android"
+              xmlns:chip="clr-namespace:Esagaweb.Maui.Android.Controls.Chip;assembly=Esagaweb.Maui.Android"
+              xmlns:badge="clr-namespace:Esagaweb.Maui.Android.Controls.Badge;assembly=Esagaweb.Maui.Android"
+              xmlns:prog="clr-namespace:Esagaweb.Maui.Android.Controls.Progress;assembly=Esagaweb.Maui.Android"
+              xmlns:snack="clr-namespace:Esagaweb.Maui.Android.Controls.Snackbar;assembly=Esagaweb.Maui.Android"
+              xmlns:fab="clr-namespace:Esagaweb.Maui.Android.Controls.Fab;assembly=Esagaweb.Maui.Android"
+              xmlns:common="clr-namespace:Esagaweb.Maui.Android.Controls.Common;assembly=Esagaweb.Maui.Android"
+              x:Class="Esagaweb.Maui.Android.Sample.Pages.CatalogPage"
+              Shell.NavBarIsVisible="False"
+              Title="Catálogo">
+    <fab:M3FabHost>
+        <fab:M3FabHost.Body>
+            <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <appbar:M3TopAppBar x:Name="TopBar"
+                            Title="Esagaweb Store"
+                            Type="Medium"
+                            NavigationGlyph="{x:Static common:M3Icons.Menu}"
+                            NavigationClicked="OnMenuClicked">
+            <appbar:M3TopAppBar.Actions>
+                <iconbtn:M3IconButton Variant="Standard"
+                                      Glyph="{x:Static common:M3Icons.Search}"
+                                      Clicked="OnSearchClicked" />
+                <Grid>
+                    <iconbtn:M3IconButton Variant="Filled"
+                                          Glyph="{x:Static common:M3Icons.ShoppingCart}"
+                                          Clicked="OnCartClicked" />
+                    <badge:M3Badge x:Name="CartBadge"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Start" />
+                </Grid>
+            </appbar:M3TopAppBar.Actions>
+        </appbar:M3TopAppBar>
+
+        <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <HorizontalStackLayout x:Name="ChipsRow" Padding="16,8" Spacing="8" />
+        </ScrollView>
+
+        <Grid Grid.Row="2">
+            <ScrollView x:Name="ProductsScroll">
+                <Grid x:Name="ProductsGrid" Padding="12" ColumnSpacing="8" RowSpacing="8"
+                      VerticalOptions="Start" />
+            </ScrollView>
+            <prog:M3CircularProgress x:Name="Loading"
+                                     IsVisible="False"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center" />
+        </Grid>
+
+        <snack:M3SnackbarHost x:Name="Snacks" Grid.Row="3" />
+            </Grid>
+        </fab:M3FabHost.Body>
+        <fab:M3FabHost.FabContent>
+            <fab:M3Fab x:Name="CartFab"
+                       Variant="Primary"
+                       Text="Pagar"
+                       Glyph="{x:Static common:M3Icons.ShoppingCart}"
+                       Clicked="OnCartClicked"
+                       IsVisible="False" />
+        </fab:M3FabHost.FabContent>
+    </fab:M3FabHost>
+</ContentPage>

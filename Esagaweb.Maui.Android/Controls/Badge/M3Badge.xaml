@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Esagaweb.Maui.Android.Controls.Badge.M3Badge">
+    <Border x:Name="Pill"
+            StrokeThickness="0"
+            HeightRequest="16"
+            MinimumWidthRequest="16"
+            Padding="4,0"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="8" />
+        </Border.StrokeShape>
+        <Label x:Name="CountLabel"
+               FontFamily="NunitoSemiBold"
+               FontSize="11"
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
+    </Border>
+</ContentView>

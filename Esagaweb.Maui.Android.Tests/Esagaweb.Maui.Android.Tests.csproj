@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<RootNamespace>Esagaweb.Maui.Android.Tests</RootNamespace>
+		<OutputType>Exe</OutputType>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+		<!-- Ejecutor Microsoft Testing Platform (dotnet test moderno en SDK 10).
+		     xunit.v3 4.x ya no soporta VSTest: sin runner.visualstudio ni Test.Sdk. -->
+		<UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- xUnit v3 última estable (trae el runner MTP v2 por dependencia). -->
+		<PackageReference Include="xunit.v3" Version="4.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Esagaweb.Maui.Android\Esagaweb.Maui.Android.csproj" />
+	</ItemGroup>
+
+</Project>

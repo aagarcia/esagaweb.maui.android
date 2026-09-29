@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cards="clr-namespace:Esagaweb.Maui.Android.Controls.Cards;assembly=Esagaweb.Maui.Android"
+             xmlns:appbar="clr-namespace:Esagaweb.Maui.Android.Controls.TopAppBar;assembly=Esagaweb.Maui.Android"
+             xmlns:iconbtn="clr-namespace:Esagaweb.Maui.Android.Controls.IconButtons;assembly=Esagaweb.Maui.Android"
+             xmlns:fab="clr-namespace:Esagaweb.Maui.Android.Controls.Fab;assembly=Esagaweb.Maui.Android"
+             xmlns:buttons="clr-namespace:Esagaweb.Maui.Android.Controls.Buttons;assembly=Esagaweb.Maui.Android"
+             xmlns:chip="clr-namespace:Esagaweb.Maui.Android.Controls.Chip;assembly=Esagaweb.Maui.Android"
+             xmlns:badge="clr-namespace:Esagaweb.Maui.Android.Controls.Badge;assembly=Esagaweb.Maui.Android"
+             xmlns:snack="clr-namespace:Esagaweb.Maui.Android.Controls.Snackbar;assembly=Esagaweb.Maui.Android"
+             xmlns:common="clr-namespace:Esagaweb.Maui.Android.Controls.Common;assembly=Esagaweb.Maui.Android"
+             x:Class="Esagaweb.Maui.Android.Sample.Pages.DetailPage"
+             Shell.NavBarIsVisible="False"
+             Title="Detalle">
+    <fab:M3FabHost>
+        <fab:M3FabHost.Body>
+            <Grid RowDefinitions="Auto,*,Auto">
+        <appbar:M3TopAppBar Title="Detalle"
+                            Type="Small"
+                            NavigationGlyph="{x:Static common:M3Icons.ArrowBack}"
+                            NavigationClicked="OnBackClicked">
+            <appbar:M3TopAppBar.Actions>
+                <iconbtn:M3IconButton Variant="Tonal"
+                                      Glyph="{x:Static common:M3Icons.Search}"
+                                      Clicked="OnSearchClicked" />
+                <Grid>
+                    <iconbtn:M3IconButton Variant="Outlined"
+                                          Glyph="{x:Static common:M3Icons.ShoppingCart}"
+                                          Clicked="OnCartClicked" />
+                    <badge:M3Badge x:Name="CartBadge"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Start" />
+                </Grid>
+            </appbar:M3TopAppBar.Actions>
+        </appbar:M3TopAppBar>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout x:Name="Root" Padding="16" Spacing="16">
+                <cards:M3Card Variant="Elevated">
+                    <VerticalStackLayout Spacing="8">
+                        <Label x:Name="NameLabel"
+                               Style="{StaticResource M3TitleLargeStyle}"
+                               Text="Producto" />
+                        <Label x:Name="PriceLabel"
+                               Style="{StaticResource M3BodyMediumStyle}"
+                               Text="—" />
+                        <Label Style="{StaticResource M3BodyMediumStyle}"
+                               Text="Envío en 24/48h · devolución gratuita durante 30 días." />
+                    </VerticalStackLayout>
+                </cards:M3Card>
+
+                <chip:M3Chip x:Name="StockChip"
+                             Type="Assist"
+                             Text="En stock"
+                             Glyph="{x:Static common:M3Icons.Check}" />
+
+                <buttons:M3Button Text="Añadir al carrito"
+                                  Variant="Filled"
+                                  Glyph="{x:Static common:M3Icons.ShoppingCart}"
+                                  Clicked="OnAddClicked" />
+                <buttons:M3Button Text="Elegir talla"
+                                  Variant="Tonal"
+                                  Clicked="OnSizesClicked" />
+                <Label x:Name="SizeLabel"
+                       Style="{StaticResource M3BodyMediumStyle}"
+                       Text="Talla: M" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+                <snack:M3SnackbarHost x:Name="Snacks" Grid.Row="2" />
+            </Grid>
+        </fab:M3FabHost.Body>
+        <fab:M3FabHost.FabContent>
+            <fab:M3Fab Size="Regular"
+                       Glyph="{x:Static common:M3Icons.Favorite}"
+                       Clicked="OnFavClicked" />
+        </fab:M3FabHost.FabContent>
+    </fab:M3FabHost>
+</ContentPage>

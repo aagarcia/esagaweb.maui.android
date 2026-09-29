@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     x:Class="Esagaweb.Maui.Android.Themes.M3Typography">
+
+    <!-- TypeScale M3 simplificado. Tamaños base teléfono; tablet se escala vía ResponsiveHelper. -->
+    <x:Double x:Key="M3DisplayLarge">57</x:Double>
+    <x:Double x:Key="M3HeadlineMedium">28</x:Double>
+    <x:Double x:Key="M3TitleLarge">22</x:Double>
+    <x:Double x:Key="M3TitleMedium">16</x:Double>
+    <x:Double x:Key="M3BodyLarge">16</x:Double>
+    <x:Double x:Key="M3BodyMedium">14</x:Double>
+    <x:Double x:Key="M3LabelLarge">14</x:Double>
+    <x:Double x:Key="M3LabelMedium">12</x:Double>
+
+    <Style x:Key="M3TitleLargeStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="NunitoSemiBold" />
+        <Setter Property="FontSize" Value="{StaticResource M3TitleLarge}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+    <Style x:Key="M3BodyMediumStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="NunitoRegular" />
+        <Setter Property="FontSize" Value="{StaticResource M3BodyMedium}" />
+    </Style>
+    <Style x:Key="M3LabelLargeStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="NunitoSemiBold" />
+        <Setter Property="FontSize" Value="{StaticResource M3LabelLarge}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- IMPORTANTE: los iconos SIEMPRE usan MaterialSymbols en su propio Label.
+         No mezclar texto Nunito + glyph en el mismo Label y no aplicar el estilo
+         implícito de texto a este estilo. Si un estilo global de Label pisa
+         FontFamily, el glyph muestra tofu/cuadro vacío. -->
+    <Style x:Key="M3IconLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="MaterialSymbols" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+    <Style x:Key="M3TextLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="NunitoSemiBold" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+</ResourceDictionary>

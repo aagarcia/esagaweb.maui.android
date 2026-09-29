@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Esagaweb.Maui.Android/Esagaweb.Maui.Android.csproj" />
+  <Project Path="Esagaweb.Maui.Android.Sample/Esagaweb.Maui.Android.Sample.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+  <Project Path="Esagaweb.Maui.Android.Tests/Esagaweb.Maui.Android.Tests.csproj" />
+</Solution>

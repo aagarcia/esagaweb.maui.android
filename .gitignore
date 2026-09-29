@@ -1,0 +1,37 @@
+# Build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.binlog
+
+# Packages (CI produces them; never commit)
+*.nupkg
+*.snupkg
+feed/
+
+# Test results
+TestResults/
+*.trx
+coverage*/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.DotSettings.user
+
+# Android signing / secrets
+*.keystore
+*.jks
+*.pfx
+.env
+
+# Logs & OS noise
+log-*.txt
+bugreport*.zip
+*.log
+Thumbs.db
+.DS_Store

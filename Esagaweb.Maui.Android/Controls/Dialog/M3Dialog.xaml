@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Esagaweb.Maui.Android.Controls.Dialog.M3Dialog">
+    <!-- IMPORTANTE: el contenido raíz va en ContentView.Content explícito.
+         Sin este wrapper, el generador XAML lo asigna al [ContentProperty]
+         (DialogContent), cuyo setter lo mete dentro de CustomContent creando
+         un ciclo en el árbol visual (ANR por layout infinito). Ver M3TopAppBar. -->
+    <ContentView.Content>
+        <Border x:Name="Card"
+            StrokeThickness="0"
+            Padding="24"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            MaximumWidthRequest="280">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="28" />
+        </Border.StrokeShape>
+        <VerticalStackLayout Spacing="16">
+            <Label x:Name="TitleLabel"
+                   FontFamily="NunitoSemiBold"
+                   FontSize="22"
+                   HorizontalTextAlignment="Center" />
+            <Label x:Name="MessageLabel"
+                   FontFamily="NunitoRegular"
+                   FontSize="14" />
+            <ContentView x:Name="CustomContent" IsVisible="False" />
+            <HorizontalStackLayout x:Name="ActionsRow"
+                                   Spacing="8"
+                                   HorizontalOptions="End">
+                <Button x:Name="CancelButton"
+                        FontFamily="NunitoSemiBold"
+                        BackgroundColor="Transparent"
+                        IsVisible="False" />
+                <Button x:Name="ConfirmButton"
+                        FontFamily="NunitoSemiBold"
+                        IsVisible="False" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+    </ContentView.Content>
+</ContentView>

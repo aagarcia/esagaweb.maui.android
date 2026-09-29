@@ -1,0 +1,38 @@
+name: New M3 component
+description: Propose a new Material 3 component for the kit.
+title: "feat: new component "
+labels: [new-component]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Component name
+      description: Proposed control name, e.g. M3DatePicker.
+      placeholder: "M3..."
+    validations:
+      required: true
+  - type: input
+    id: spec
+    attributes:
+      label: Material 3 spec link
+      description: Link to the component page on m3.material.io.
+      placeholder: "https://m3.material.io/components/..."
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API
+      description: Properties, events, variants, and TwoWay bindings where editable.
+    validations:
+      required: true
+  - type: textarea
+    id: sample
+    attributes:
+      label: Sample usage
+      description: Which Sample screen would showcase it (Catalog / Detail / Checkout / Settings), or a new one.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Theming / responsive notes
+      description: Light/dark behavior, Compact/Medium/Expanded expectations.

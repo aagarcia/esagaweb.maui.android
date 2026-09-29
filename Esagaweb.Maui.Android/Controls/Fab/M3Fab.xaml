@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Esagaweb.Maui.Android.Controls.Fab.M3Fab">
+    <Border x:Name="RootBorder"
+            StrokeThickness="0"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+        <!-- Dual: Glyph (SIEMPRE MaterialSymbols en su propio Label) o Imagen fallback.
+             Si Text no está vacío: modo extendido (icono + texto). -->
+        <HorizontalStackLayout x:Name="ContentRow"
+                               Spacing="8"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+            <Label x:Name="GlyphLabel"
+                   FontFamily="MaterialSymbols"
+                   FontSize="24"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+            <Image x:Name="FabImage"
+                   HeightRequest="24"
+                   WidthRequest="24"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   IsVisible="False" />
+            <Label x:Name="FabText"
+                   FontFamily="NunitoSemiBold"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   IsVisible="False" />
+        </HorizontalStackLayout>
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapped" />
+            <PointerGestureRecognizer PointerPressed="OnPointerPressed"
+                                       PointerReleased="OnPointerReleased" />
+        </Border.GestureRecognizers>
+    </Border>
+</ContentView>

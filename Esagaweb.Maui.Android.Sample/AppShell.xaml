@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Esagaweb.Maui.Android.Sample.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Esagaweb.Maui.Android.Sample.Pages"
+    xmlns:common="clr-namespace:Esagaweb.Maui.Android.Controls.Common;assembly=Esagaweb.Maui.Android"
+    FlyoutBackgroundColor="{StaticResource M3Surface}"
+    Title="Esagaweb Store">
+
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="{StaticResource M3PrimaryContainer}" Padding="16,24">
+            <Label Text="Esagaweb Store · demo M3"
+                   Style="{StaticResource M3TitleLargeStyle}" />
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Tienda" Route="tienda">
+        <ShellContent Title="Catálogo"
+                      ContentTemplate="{DataTemplate pages:CatalogPage}"
+                      Route="catalog">
+            <ShellContent.Icon>
+                <FontImageSource Glyph="{x:Static common:M3Icons.Home}"
+                                 FontFamily="MaterialSymbols" Size="24" />
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="Pagar"
+                      ContentTemplate="{DataTemplate pages:CheckoutPage}"
+                      Route="checkout">
+            <ShellContent.Icon>
+                <FontImageSource Glyph="{x:Static common:M3Icons.CreditCard}"
+                                 FontFamily="MaterialSymbols" Size="24" />
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="Ajustes"
+                      ContentTemplate="{DataTemplate pages:SettingsPage}"
+                      Route="settings">
+            <ShellContent.Icon>
+                <FontImageSource Glyph="{x:Static common:M3Icons.Settings}"
+                                 FontFamily="MaterialSymbols" Size="24" />
+            </ShellContent.Icon>
+        </ShellContent>
+    </FlyoutItem>
+
+</Shell>

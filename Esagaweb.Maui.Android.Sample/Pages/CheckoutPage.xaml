@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:appbar="clr-namespace:Esagaweb.Maui.Android.Controls.TopAppBar;assembly=Esagaweb.Maui.Android"
+             xmlns:iconbtn="clr-namespace:Esagaweb.Maui.Android.Controls.IconButtons;assembly=Esagaweb.Maui.Android"
+             xmlns:field="clr-namespace:Esagaweb.Maui.Android.Controls.TextField;assembly=Esagaweb.Maui.Android"
+             xmlns:sel="clr-namespace:Esagaweb.Maui.Android.Controls.Selection;assembly=Esagaweb.Maui.Android"
+             xmlns:buttons="clr-namespace:Esagaweb.Maui.Android.Controls.Buttons;assembly=Esagaweb.Maui.Android"
+             xmlns:prog="clr-namespace:Esagaweb.Maui.Android.Controls.Progress;assembly=Esagaweb.Maui.Android"
+             xmlns:snack="clr-namespace:Esagaweb.Maui.Android.Controls.Snackbar;assembly=Esagaweb.Maui.Android"
+             xmlns:common="clr-namespace:Esagaweb.Maui.Android.Controls.Common;assembly=Esagaweb.Maui.Android"
+             xmlns:pages="clr-namespace:Esagaweb.Maui.Android.Sample.Pages"
+             x:Class="Esagaweb.Maui.Android.Sample.Pages.CheckoutPage"
+             x:DataType="pages:CheckoutPage"
+             x:Name="Page"
+             Shell.NavBarIsVisible="False"
+             Title="Pagar">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <appbar:M3TopAppBar Title="Pagar"
+                            Type="Small"
+                            NavigationGlyph="{x:Static common:M3Icons.Menu}"
+                            NavigationClicked="OnMenuClicked">
+            <appbar:M3TopAppBar.Actions>
+                <iconbtn:M3IconButton Variant="Outlined"
+                                      Glyph="{x:Static common:M3Icons.Info}"
+                                      Clicked="OnInfoClicked" />
+            </appbar:M3TopAppBar.Actions>
+        </appbar:M3TopAppBar>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout x:Name="Root" Padding="16" Spacing="16">
+                <Label Text="Tus datos"
+                       Style="{StaticResource M3TitleLargeStyle}" />
+                <field:M3TextField x:Name="NameField"
+                                   Label="Nombre"
+                                   Placeholder="Escribe tu nombre"
+                                   HelperText="Filled con icono leading"
+                                   LeadingGlyph="{x:Static common:M3Icons.Person}" />
+                <field:M3TextField x:Name="MailField"
+                                   Label="Correo"
+                                   Placeholder="nombre@mail.com"
+                                   Keyboard="Email"
+                                   HelperText="Outlined con trailing que limpia"
+                                   Variant="Outlined"
+                                   LeadingGlyph="{x:Static common:M3Icons.Mail}"
+                                   TrailingGlyph="{x:Static common:M3Icons.Close}"
+                                   TrailingCommand="{Binding ClearMailCommand, Source={x:Reference Page}}" />
+                <field:M3TextField x:Name="PasswordField"
+                                   Label="Contraseña"
+                                   Placeholder="••••••••"
+                                   IsPassword="True"
+                                   Variant="Outlined"
+                                   HelperText="Trailing alterna visibilidad"
+                                   TrailingGlyph="{x:Static common:M3Icons.Visibility}"
+                                   TrailingCommand="{Binding TogglePasswordCommand, Source={x:Reference Page}}" />
+
+                <Label Text="Envío"
+                       Style="{StaticResource M3TitleLargeStyle}" />
+                <sel:M3RadioRow Text="Estándar (3-5 días)" GroupName="Ship" Value="Std" IsSelected="True" />
+                <sel:M3RadioRow Text="Exprés (24h)" GroupName="Ship" Value="Exp" />
+
+                <sel:M3CheckBoxRow x:Name="TermsCheck" Text="Acepto los términos de compra" />
+
+                <prog:M3LinearProgress x:Name="PayProgress" IsVisible="False" Value="0.5" />
+                <buttons:M3Button Text="Pagar"
+                                  Variant="Filled"
+                                  Glyph="{x:Static common:M3Icons.CreditCard}"
+                                  Clicked="OnPayClicked" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <snack:M3SnackbarHost x:Name="Snacks" Grid.Row="2" />
+    </Grid>
+</ContentPage>

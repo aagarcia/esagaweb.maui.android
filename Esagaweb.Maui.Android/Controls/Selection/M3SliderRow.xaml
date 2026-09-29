@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Esagaweb.Maui.Android.Controls.Selection.M3SliderRow">
+    <VerticalStackLayout x:Name="Root" Spacing="0">
+        <Grid ColumnDefinitions="*,Auto">
+            <Label x:Name="RowLabel"
+                   FontFamily="NunitoRegular"
+                   FontSize="16"
+                   VerticalOptions="Center" />
+            <Label x:Name="ValueLabel"
+                   Grid.Column="1"
+                   FontFamily="NunitoSemiBold"
+                   FontSize="14"
+                   VerticalOptions="Center" />
+        </Grid>
+        <Slider x:Name="InnerSlider"
+                MinimumTrackColor="{AppThemeBinding Light={StaticResource M3Primary}, Dark={StaticResource M3DarkPrimary}}"
+                MaximumTrackColor="{AppThemeBinding Light={StaticResource M3SurfaceVariant}, Dark={StaticResource M3DarkSurfaceVariant}}"
+                ThumbColor="{AppThemeBinding Light={StaticResource M3Primary}, Dark={StaticResource M3DarkPrimary}}" />
+    </VerticalStackLayout>
+</ContentView>

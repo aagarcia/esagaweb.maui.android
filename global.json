@@ -1,0 +1,8 @@
+{
+	// Runner de tests: Microsoft Testing Platform (xunit.v3 4.x ya no soporta VSTest).
+	// Sin sección "sdk": no fija versión del SDK, solo el runner de `dotnet test`.
+	// Sintaxis nueva: `dotnet test --project <csproj>` (no posicional).
+	"test": {
+		"runner": "Microsoft.Testing.Platform"
+	}
+}

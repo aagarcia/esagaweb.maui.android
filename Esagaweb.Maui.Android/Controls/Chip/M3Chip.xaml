@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Esagaweb.Maui.Android.Controls.Chip.M3Chip">
+    <Border x:Name="RootBorder"
+            StrokeThickness="1"
+            Padding="8,0"
+            HeightRequest="32"
+            VerticalOptions="Center">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="8" />
+        </Border.StrokeShape>
+        <HorizontalStackLayout Spacing="4"
+                               VerticalOptions="Center">
+            <!-- Leading: SIEMPRE MaterialSymbols en su propio Label. -->
+            <Label x:Name="GlyphLabel"
+                   FontFamily="MaterialSymbols"
+                   FontSize="18"
+                   VerticalOptions="Center"
+                   IsVisible="False" />
+            <Label x:Name="TextLabel"
+                   FontFamily="NunitoRegular"
+                   FontSize="14"
+                   VerticalOptions="Center" />
+            <Label x:Name="CloseLabel"
+                   FontFamily="MaterialSymbols"
+                   FontSize="18"
+                   VerticalOptions="Center"
+                   IsVisible="False">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCloseTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapped" />
+        </Border.GestureRecognizers>
+    </Border>
+</ContentView>

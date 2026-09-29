@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Esagaweb.Maui.Android.Controls.TextField.M3TextField">
+    <VerticalStackLayout Spacing="4">
+        <!-- Etiqueta superior estilo M3 (12sp). -->
+        <Label x:Name="FieldLabel"
+               FontFamily="NunitoSemiBold"
+               FontSize="12"
+               IsVisible="False" />
+        <Border x:Name="FieldBorder"
+                StrokeThickness="1"
+                Padding="12,0"
+                VerticalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="4" />
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  ColumnSpacing="8"
+                  VerticalOptions="Center">
+                <!-- Leading: SIEMPRE MaterialSymbols en su propio Label. -->
+                <Label x:Name="LeadingGlyphLabel"
+                       FontFamily="MaterialSymbols"
+                       FontSize="24"
+                       VerticalOptions="Center"
+                       IsVisible="False" />
+                <Entry x:Name="InnerEntry"
+                       Grid.Column="1"
+                       FontFamily="NunitoRegular"
+                       FontSize="16"
+                       BackgroundColor="Transparent"
+                       VerticalOptions="Center" />
+                <!-- Trailing: glyph display + tap (ej. mostrar/ocultar contraseña). -->
+                <Label x:Name="TrailingGlyphLabel"
+                       Grid.Column="2"
+                       FontFamily="MaterialSymbols"
+                       FontSize="24"
+                       VerticalOptions="Center"
+                       IsVisible="False">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTrailingTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+        </Border>
+        <!-- Indicador inferior (variante Filled): línea activa 2dp / inactiva 1dp. -->
+        <BoxView x:Name="IndicatorLine"
+                 HeightRequest="1"
+                 HorizontalOptions="Fill"
+                 Margin="0,-8,0,0"
+                 IsVisible="False" />
+        <!-- Texto de ayuda / error. -->
+        <Label x:Name="SupportLabel"
+               FontFamily="NunitoRegular"
+               FontSize="12"
+               IsVisible="False" />
+    </VerticalStackLayout>
+</ContentView>
