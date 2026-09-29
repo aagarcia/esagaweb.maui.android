@@ -11,7 +11,8 @@ Standalone M3 floating action button (namespace `Esagaweb.Maui.Android.Controls.
 | `Size` | `M3FabSize` | `Regular` | `Small` (48) `Regular` (56) `Large` (96). Circular mode only. |
 | `Variant` | `M3FabVariant` | `Primary` | `Primary` `Surface` `Secondary` `Tertiary`. |
 | `Text` | `string` | `""` | Non-empty = extended mode (icon + text pill). |
-| `Command` | `ICommand` | `null` | No parameters. |
+| `Command` | `ICommand` | `null` | Executes only when `CanExecute(CommandParameter)` is `true`. |
+| `CommandParameter` | `object` | `null` | Parameter passed to `Command`. |
 
 ## Examples
 

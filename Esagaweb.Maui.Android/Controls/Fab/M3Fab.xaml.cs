@@ -44,6 +44,10 @@ public partial class M3Fab : ContentView
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(M3Fab), null);
 
+    /// <summary>Identifies the <see cref="CommandParameter"/> bindable property.</summary>
+    public static readonly BindableProperty CommandParameterProperty =
+        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(M3Fab), null);
+
     /// <summary>Identifies the <see cref="Variant"/> bindable property.</summary>
     public static readonly BindableProperty VariantProperty =
         BindableProperty.Create(nameof(Variant), typeof(M3FabVariant), typeof(M3Fab),
@@ -78,12 +82,20 @@ public partial class M3Fab : ContentView
         set => SetValue(SizeProperty, value);
     }
 
-    /// <summary>Gets or sets the command invoked when the button is tapped. The command receives no parameter. The default is null.</summary>
+    /// <summary>Gets or sets the command invoked when the button is tapped. It receives <see cref="CommandParameter"/> and executes only when <see cref="ICommand.CanExecute"/> returns <see langword="true"/> for that parameter. The default is <see langword="null"/>.</summary>
     /// <remarks>This is a bindable property.</remarks>
     public ICommand? Command
     {
         get => (ICommand?)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
+    }
+
+    /// <summary>Gets or sets the parameter passed to <see cref="Command"/>. The default is <see langword="null"/>.</summary>
+    /// <remarks>This is a bindable property.</remarks>
+    public object? CommandParameter
+    {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
     }
 
     /// <summary>Gets or sets the color variant. The default is Primary.</summary>
@@ -114,6 +126,14 @@ public partial class M3Fab : ContentView
         UpdateAppearance();
     }
 
+    /// <inheritdoc/>
+    protected override void OnPropertyChanged(string? propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+        if (propertyName == nameof(IsEnabled))
+            UpdateAppearance();
+    }
+
     private void UpdateIcon()
     {
         GlyphLabel.FontFamily = "MaterialSymbols";
@@ -125,6 +145,16 @@ public partial class M3Fab : ContentView
 
     private void UpdateAppearance()
     {
+        if (!IsEnabled)
+        {
+            RootBorder.Opacity = 0.38;
+            M3ControlHelper.SetThemed(RootBorder, Border.BackgroundColorProperty, "M3SurfaceVariant", "M3DarkSurfaceVariant");
+            M3ControlHelper.SetThemed(GlyphLabel, Label.TextColorProperty, "M3OnSurfaceVariant", "M3DarkOnSurface");
+            M3ControlHelper.SetThemed(FabText, Label.TextColorProperty, "M3OnSurfaceVariant", "M3DarkOnSurface");
+            return;
+        }
+
+        RootBorder.Opacity = 1;
         var (bgLight, bgDark, iconLight, iconDark) = M3FabColors.Resolve(Variant);
 
         if (IsExtended)
@@ -177,12 +207,13 @@ public partial class M3Fab : ContentView
     private void OnTapped(object? sender, TappedEventArgs e)
     {
         if (!IsEnabled) return;
-        Command?.Execute(null);
+        if (Command?.CanExecute(CommandParameter) == true)
+            Command.Execute(CommandParameter);
         Clicked?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnPointerPressed(object? sender, PointerEventArgs e) => RootBorder.Opacity = 0.85;
-    private void OnPointerReleased(object? sender, PointerEventArgs e) => RootBorder.Opacity = 1;
+    private void OnPointerReleased(object? sender, PointerEventArgs e) => RootBorder.Opacity = IsEnabled ? 1 : 0.38;
 
     /// <summary>Occurs when the button is tapped.</summary>
     public event EventHandler? Clicked;

@@ -5,9 +5,14 @@ Versions follow [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- `CommandParameter` property on `M3Fab` and `M3IconButton`.
+
 ### Fixed
 - `M3Dialog.ShowAsync`: hangs when modal is dismissed with hardware back button (now handles back via `M3ModalHostPage`); idempotent `CloseAsync`; re-entrant `ShowAsync` returns existing task.
 - `M3BottomSheet`: back button did not raise `Dismissed`; `HideAsync` could pop an unrelated page; double scrim tap caused double pop (now uses `M3ModalHostPage`, idempotent `HideAsync`).
+- `M3Fab` / `M3IconButton`: `Command` now respects `CanExecute` and receives `CommandParameter` (previously ignored both).
+- `M3Fab`: disabled state now shows reduced opacity (0.38) matching `M3IconButton`.
 
 ### Changed
 - XML documentation (IntelliSense) translated to English and expanded: defaults, parameters, return values and XAML examples.

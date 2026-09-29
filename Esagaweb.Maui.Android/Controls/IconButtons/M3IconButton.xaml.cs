@@ -43,6 +43,10 @@ public partial class M3IconButton : ContentView
     public static readonly BindableProperty CommandProperty =
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(M3IconButton), null);
 
+    /// <summary>Identifies the <see cref="CommandParameter"/> bindable property.</summary>
+    public static readonly BindableProperty CommandParameterProperty =
+        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(M3IconButton), null);
+
     /// <summary>Gets or sets the Material Symbols glyph shown on the button. Takes priority over <see cref="Icon"/>. The default is an empty string.</summary>
     /// <remarks>This is a bindable property.</remarks>
     public string Glyph
@@ -67,12 +71,20 @@ public partial class M3IconButton : ContentView
         set => SetValue(VariantProperty, value);
     }
 
-    /// <summary>Gets or sets the command invoked when the button is tapped. The command receives no parameter. The default is null.</summary>
+    /// <summary>Gets or sets the command invoked when the button is tapped. It receives <see cref="CommandParameter"/> and executes only when <see cref="ICommand.CanExecute"/> returns <see langword="true"/> for that parameter. The default is <see langword="null"/>.</summary>
     /// <remarks>This is a bindable property.</remarks>
     public ICommand? Command
     {
         get => (ICommand?)GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
+    }
+
+    /// <summary>Gets or sets the parameter passed to <see cref="Command"/>. The default is <see langword="null"/>.</summary>
+    /// <remarks>This is a bindable property.</remarks>
+    public object? CommandParameter
+    {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
     }
 
     /// <summary>Initializes a new instance of the <see cref="M3IconButton"/> class.</summary>
@@ -142,7 +154,8 @@ public partial class M3IconButton : ContentView
     private void OnTapped(object? sender, TappedEventArgs e)
     {
         if (!IsEnabled) return;
-        Command?.Execute(null);
+        if (Command?.CanExecute(CommandParameter) == true)
+            Command.Execute(CommandParameter);
         Clicked?.Invoke(this, EventArgs.Empty);
     }
 

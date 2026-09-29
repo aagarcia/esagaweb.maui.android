@@ -9,7 +9,8 @@ Icon-only button (namespace `Esagaweb.Maui.Android.Controls.IconButtons`). Examp
 | `Glyph` | `string` | `""` | `M3Icons.*` icon. Takes priority over `Icon`. |
 | `Icon` | `ImageSource` | `null` | Image when there is no `Glyph`. |
 | `Variant` | `M3IconButtonVariant` | `Standard` | `Standard` `Filled` `Tonal` `Outlined`. |
-| `Command` | `ICommand` | `null` | No parameters. |
+| `Command` | `ICommand` | `null` | Executes only when `CanExecute(CommandParameter)` is `true`. |
+| `CommandParameter` | `object` | `null` | Parameter passed to `Command`. |
 
 ## Example
 
